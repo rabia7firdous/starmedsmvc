@@ -1,0 +1,17 @@
+﻿@model  List<SubCategory>
+
+@{
+    ViewBag.Title = "SubCategories";
+}
+
+<div>
+    <h4>SubCategories</h4>
+    <hr />
+    <ul>
+        @foreach (var subcategory in Model)
+        {
+            <li>@subcategory.SubCatName</li>
+        }
+    </ul>
+</div>
+

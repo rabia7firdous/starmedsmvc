@@ -18,6 +18,7 @@ namespace StarMedsMVC
         public starmedsdbEntities()
             : base("name=starmedsdbEntities")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -26,5 +27,9 @@ namespace StarMedsMVC
         }
     
         public virtual DbSet<CustomerDetail> CustomerDetails { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<SubCategory> SubCategories { get; set; }
+        public virtual DbSet<SubClassification> SubClassifications { get; set; }
     }
 }

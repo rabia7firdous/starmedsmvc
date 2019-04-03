@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="starmeds_Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="CustomerDetails">
           <Key>
             <PropertyRef Name="Id" />
@@ -16,8 +23,87 @@
           <Property Name="Password" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="CustomerName" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Product Id" />
+          </Key>
+          <Property Name="Product Id" Type="int" Nullable="false" />
+          <Property Name="Product Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="Product Price" Type="money" Nullable="false" />
+          <Property Name="Product Image" Type="image" Nullable="false" />
+          <Property Name="Product Details" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SubClassificationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubCategory">
+          <Key>
+            <PropertyRef Name="SubCat Id" />
+          </Key>
+          <Property Name="SubCat Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubCatName" Type="varchar(max)" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubClassification">
+          <Key>
+            <PropertyRef Name="SubClassificationId" />
+          </Key>
+          <Property Name="SubClassificationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubClassificationName" Type="varchar(max)" Nullable="false" />
+          <Property Name="SubCat Id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Products_SubClassification">
+          <End Role="SubClassification" Type="Self.SubClassification" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubClassification">
+              <PropertyRef Name="SubClassificationId" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="SubClassificationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubCategory_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="SubCategory" Type="Self.SubCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="SubCategory">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubClassification_SubCategory">
+          <End Role="SubCategory" Type="Self.SubCategory" Multiplicity="1" />
+          <End Role="SubClassification" Type="Self.SubClassification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubCategory">
+              <PropertyRef Name="SubCat Id" />
+            </Principal>
+            <Dependent Role="SubClassification">
+              <PropertyRef Name="SubCat Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="starmeds_EntitiesStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerDetails" EntityType="Self.CustomerDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubCategory" EntityType="Self.SubCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubClassification" EntityType="Self.SubClassification" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Products_SubClassification" Association="Self.FK_Products_SubClassification">
+            <End Role="SubClassification" EntitySet="SubClassification" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubCategory_Category" Association="Self.FK_SubCategory_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="SubCategory" EntitySet="SubCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubClassification_SubCategory" Association="Self.FK_SubClassification_SubCategory">
+            <End Role="SubCategory" EntitySet="SubCategory" />
+            <End Role="SubClassification" EntitySet="SubClassification" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -36,7 +122,99 @@
         </EntityType>
         <EntityContainer Name="starmedsdbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CustomerDetails" EntityType="Self.CustomerDetail" />
+          <EntitySet Name="Categories" EntityType="starmeds_Entities.Category" />
+          <EntitySet Name="Products" EntityType="starmeds_Entities.Product" />
+          <EntitySet Name="SubCategories" EntityType="starmeds_Entities.SubCategory" />
+          <EntitySet Name="SubClassifications" EntityType="starmeds_Entities.SubClassification" />
+          <AssociationSet Name="FK_SubCategory_Category" Association="starmeds_Entities.FK_SubCategory_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="SubCategory" EntitySet="SubCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_SubClassification" Association="starmeds_Entities.FK_Products_SubClassification">
+            <End Role="SubClassification" EntitySet="SubClassifications" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubClassification_SubCategory" Association="starmeds_Entities.FK_SubClassification_SubCategory">
+            <End Role="SubCategory" EntitySet="SubCategories" />
+            <End Role="SubClassification" EntitySet="SubClassifications" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SubCategories" Relationship="starmeds_Entities.FK_SubCategory_Category" FromRole="Category" ToRole="SubCategory" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Product_Id" />
+          </Key>
+          <Property Name="Product_Id" Type="Int32" Nullable="false" />
+          <Property Name="Product_Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Product_Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Product_Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="Product_Details" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SubClassificationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="SubClassification" Relationship="starmeds_Entities.FK_Products_SubClassification" FromRole="Product" ToRole="SubClassification" />
+        </EntityType>
+        <EntityType Name="SubCategory">
+          <Key>
+            <PropertyRef Name="SubCat_Id" />
+          </Key>
+          <Property Name="SubCat_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubCatName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="starmeds_Entities.FK_SubCategory_Category" FromRole="SubCategory" ToRole="Category" />
+          <NavigationProperty Name="SubClassifications" Relationship="starmeds_Entities.FK_SubClassification_SubCategory" FromRole="SubCategory" ToRole="SubClassification" />
+        </EntityType>
+        <EntityType Name="SubClassification">
+          <Key>
+            <PropertyRef Name="SubClassificationId" />
+          </Key>
+          <Property Name="SubClassificationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubClassificationName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SubCat_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="starmeds_Entities.FK_Products_SubClassification" FromRole="SubClassification" ToRole="Product" />
+          <NavigationProperty Name="SubCategory" Relationship="starmeds_Entities.FK_SubClassification_SubCategory" FromRole="SubClassification" ToRole="SubCategory" />
+        </EntityType>
+        <Association Name="FK_SubCategory_Category">
+          <End Type="starmeds_Entities.Category" Role="Category" Multiplicity="1" />
+          <End Type="starmeds_Entities.SubCategory" Role="SubCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="SubCategory">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_SubClassification">
+          <End Type="starmeds_Entities.SubClassification" Role="SubClassification" Multiplicity="1" />
+          <End Type="starmeds_Entities.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubClassification">
+              <PropertyRef Name="SubClassificationId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="SubClassificationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubClassification_SubCategory">
+          <End Type="starmeds_Entities.SubCategory" Role="SubCategory" Multiplicity="1" />
+          <End Type="starmeds_Entities.SubClassification" Role="SubClassification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubCategory">
+              <PropertyRef Name="SubCat_Id" />
+            </Principal>
+            <Dependent Role="SubClassification">
+              <PropertyRef Name="SubCat_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -52,6 +230,44 @@
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="starmeds_Entities.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="starmeds_Entities.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="SubClassificationId" ColumnName="SubClassificationId" />
+                <ScalarProperty Name="Product_Details" ColumnName="Product Details" />
+                <ScalarProperty Name="Product_Image" ColumnName="Product Image" />
+                <ScalarProperty Name="Product_Price" ColumnName="Product Price" />
+                <ScalarProperty Name="Product_Name" ColumnName="Product Name" />
+                <ScalarProperty Name="Product_Id" ColumnName="Product Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubCategories">
+            <EntityTypeMapping TypeName="starmeds_Entities.SubCategory">
+              <MappingFragment StoreEntitySet="SubCategory">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="SubCatName" ColumnName="SubCatName" />
+                <ScalarProperty Name="SubCat_Id" ColumnName="SubCat Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubClassifications">
+            <EntityTypeMapping TypeName="starmeds_Entities.SubClassification">
+              <MappingFragment StoreEntitySet="SubClassification">
+                <ScalarProperty Name="SubCat_Id" ColumnName="SubCat Id" />
+                <ScalarProperty Name="SubClassificationName" ColumnName="SubClassificationName" />
+                <ScalarProperty Name="SubClassificationId" ColumnName="SubClassificationId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

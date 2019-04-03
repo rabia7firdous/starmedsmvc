@@ -6,6 +6,13 @@
     <edmx:Diagrams>
       <Diagram DiagramId="462d35410b074417ad417262143dda74" Name="Diagram1">
         <EntityTypeShape EntityType="starmeds_Entities.CustomerDetail" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="starmeds_Entities.Category" Width="1.5" PointX="3.375" PointY="1.375" />
+        <EntityTypeShape EntityType="starmeds_Entities.Product" Width="1.5" PointX="10.125" PointY="1" />
+        <EntityTypeShape EntityType="starmeds_Entities.SubCategory" Width="1.5" PointX="5.625" PointY="1.125" />
+        <EntityTypeShape EntityType="starmeds_Entities.SubClassification" Width="1.5" PointX="7.875" PointY="1.125" />
+        <AssociationConnector Association="starmeds_Entities.FK_SubCategory_Category" />
+        <AssociationConnector Association="starmeds_Entities.FK_Products_SubClassification" />
+        <AssociationConnector Association="starmeds_Entities.FK_SubClassification_SubCategory" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
