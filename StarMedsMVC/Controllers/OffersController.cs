@@ -11,7 +11,7 @@ namespace StarMedsMVC.Controllers
         // GET: Offers
         public ActionResult Index()
         {
-            return View();
+            return PartialView();
         }
     }
 }
