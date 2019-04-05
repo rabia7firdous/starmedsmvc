@@ -1,76 +1,218 @@
 ﻿@model  List<Category>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <ul class="nav navbar-nav">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Health Store<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    @foreach (var category in Model)
-                    {                       
-                        <li>@Html.ActionLink(category.CategoryName, "Details", "Categories", new { id = category.CategoryId }, null)</li>
-                        <ul>
-                            @foreach (var subcat in category.SubCategories)
+
+<div class="container-fluid padding-none">
+    <div class="row margin-none">
+        <div class="top-bar-info">
+            <div class="col-xs-12 col-sm-12 col-md-12 text-right">
+
+                @if (HttpContext.Current.Session["Username"] == null)
+            {
+                    <ul>
+                        <li><i class="fa fa-power-off" aria-hidden="true"></i> @Html.ActionLink("Login", "Login", "Login")</li>
+                    </ul>
+                }
+                else
+                {
+                    <ul>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome @HttpContext.Current.Session["CustomerName"].ToString()<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><i class="fa fa-user" aria-hidden="true"></i><a href="#"> My Account</a></li>
+                                <li><i class="fa fa-sign-out" aria-hidden="true"></i> @Html.ActionLink("Logout", "LogOut", "LogOut")</li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
+            </div>
+        </div>
+        </div>
+    </div>
+
+<div class="header-content clearfix">
+
+    <a href="#" title="Apollo Pharmacy">
+
+        <img class="logo m-hide" src="https://res-3.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco/lstbbpznt8mzuw2q45in" alt="Apollo Pharmacy">
+    </a>
+
+    <nav class="navbar mart-nav margin-none header-bar" role="navigation">
+        <div class="cart-icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="cart-number">22</span></div>
+        <ul class="nav navbar-nav nav-search">
+            <div class="form-group margin-none">
+                <div class="input-group productsearch">
+                    <span class="input-group-btn">
+                        <button class="btn btnMenu" type="button" id="MartSearchCategories" data-toggle="dropdown">All Product<span class="caret"></span></button>
+                        <ul class="dropdown-menu categories-drpdwn" aria-labelledby="MartSearchCategories">
+                            <li><a href="javascript:;" id="general"><i class="fa fa-check-circle"></i> General Store</a></li>
+
+                            <li><a href="javascript:;" id="pharmacy"><i class="fa fa-check-circle"></i> Pharmacy</a></li>
+
+                            <li><a href="javascript:;" id="allProducts" class="active"><i class="fa fa-check-circle"></i> All Products</a></li>
+                        </ul>
+                    </span>
+                    <span class="twitter-typeahead srchdropdwn container-fluid padding-none">
+                        <input id="enterval" name="enterval" data-provide="typeahead" type="text" class="form-control navtxtSearch typeahead tw-typeahead tt-query" placeholder="Search for... general or pharma products" autocomplete="off" spellcheck="false" dir="auto">
+
+                    </span>
+                    <i class="fa fa-refresh fa-spin fa-fw loadproducts hide"></i>
+                    <span class="input-group-btn">
+                        <button class="btn btnDark" type="button" onclick="searchNew()"><i class="fa fa-search"></i> SEARCH</button>
+                    </span>
+                </div>
+                <div class="serach-result-box">
+                    <ul class="search-list">
+                        <li class="searh-list-item"><a href="#">List</a></li>
+                        <li class="searh-list-item"><a href="#">List</a></li>
+                        <li class="searh-list-item"><a href="#">List</a></li>
+                        <li class="searh-list-item"><a href="#">List</a></li>
+                    </ul>
+                </div>
+            </div>
+        </ul>
+
+
+</nav>
+
+</div>
+<header class="header-2">
+    <nav class="navbar navbar-default menu-nav">
+        <!-- Navigation Bar -->
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navigation" aria-expanded="false">
+                    <span class="sr-only">Toggle Menu</span>
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+
+
+            <div class="navbar-collapse collapse" id="main-navigation">
+                <!-- Main Menu -->
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="mega-sub-menu">
+                        <a href="#">Health Products</a>         <!-- Mega Menu -->
+                        <ul class="mega-dropdown row">
+                            <li class="col-sm-3">
+                                <ul class="mega-menu-items">
+                                    <li class="heading">Doctor Grid</li>
+                                    <li><a href="doctors-style-1.html">Doctor Style 1</a></li>
+                                    <li><a href="doctors-style-2.html">Doctor Style 2</a></li>
+                                    <li><a href="doctors-mini.html">Doctor Mini</a></li>
+                                    <li class="hr"></li>
+                                    <li class="heading">Doctor Profile</li>
+                                    <li><a href="doctor-single.html">Doctor Single</a></li>
+                                    <li><a href="doctor-single-sidebar.html">Doctor Single with Sidebar</a></li>
+                                </ul>
+                            </li>
+                            <li class="col-sm-3">
+                                <ul class="mega-menu-items">
+                                    <li class="heading">Department Grid</li>
+                                    <li><a href="departments-style-1.html">Department Style 1</a></li>
+                                    <li><a href="departments-style-2.html">Department Style 2</a></li>
+                                    <li><a href="departments-mini.html">Department Mini</a></li>
+                                    <li><a href="departments-list.html">Department List</a></li>
+                                    <li class="hr"></li>
+                                    <li class="heading">Department Details</li>
+                                    <li><a href="department-single.html">Department Single</a></li>
+                                    <li><a href="department-single-sidebar.html">Department Single with Sidebar</a></li>
+                                </ul>
+                            </li>
+                            <li class="col-sm-3">
+                                <ul class="mega-menu-items">
+                                    <li class="heading">Appointments</li>
+                                    <li><a href="appointment-advanced.html">Appointment Advanced</a></li>
+                                    <li><a href="appointment-basic.html">Appointment Basic</a></li>
+                                    <li><a href="book-appointment-form.html">Book Appointment Form</a></li>
+                                    <li class="hr"></li>
+                                    <li class="heading">About Medwise</li>
+                                    <li><a href="about.html">About Us</a></li>
+                                    <li><a href="why-us.html">Why Us</a></li>
+                                    <li><a href="process.html">Process</a></li>
+                                    <li><a href="features.html">Features</a></li>
+                                    <li><a href="testimonials.html">Testimonials</a></li>
+                                    <li><a href="careers.html">Careers</a></li>
+                                </ul>
+                            </li>
+                            <li class="col-sm-3">
+                                <ul class="mega-menu-items">
+                                    <li class="heading">Other Pages</li>
+                                    <li><a href="gallery.html">Gallery</a></li>
+                                    <li><a href="events.html">Events</a></li>
+                                    <li><a href="download-app.html">Download App</a></li>
+                                    <li><a href="pricing-tables.html">Pricing Tables</a></li>
+                                    <li><a href="offers.html">Offers</a></li>
+                                    <li><a href="dos-donts.html">Dos &amp; Donts</a></li>
+                                    <li><a href="question-answer.html">Q and A</a></li>
+                                    <li><a href="policies.html">Policies</a></li>
+                                    <li><a href="coming-soon.html">Coming Soon</a></li>
+                                    <li><a href="404.html">404-Not Found</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#">Home</a>
+
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    </header>
+    @*<div class="navbar menu--navbar">
+            <div class="container">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Health Store<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            @foreach (var category in Model)
                             {
-                                <li><a href="#">@subcat.SubCatName</a></li>
+                                <li>@Html.ActionLink(category.CategoryName, "Details", "Categories", new { id = category.CategoryId }, null)</li>
                                 <ul>
-                                    @foreach (var subclass in subcat.SubClassifications)
+                                    @foreach (var subcat in category.SubCategories)
                                     {
-                                        <li><a href="#">@subclass.SubClassificationName</a></li>
+                                        <li><a href="#">@subcat.SubCatName</a></li>
+                                        <ul>
+                                            @foreach (var subclass in subcat.SubClassifications)
+                                            {
+                                                <li><a href="#">@subclass.SubClassificationName</a></li>
+                                            }
+                                        </ul>
                                     }
                                 </ul>
                             }
                         </ul>
-                    }
-                </ul>
-            </li>
-        </ul>
-
-        <div class="navbar-header">
-            <img src="~/Images/starmeds.png" width="50" height="50" alt="StarMeds">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            @Html.ActionLink("StarMeds", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-
-        </div>
-
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                <li>@Html.ActionLink("About", "About", "Home")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-            </ul>
-
-            @if (HttpContext.Current.Session["Username"] == null)
-            {
-                <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Login", "Login", "Login")</li>
-                </ul>
-            }
-            else
-            {
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome @HttpContext.Current.Session["CustomerName"].ToString()<b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">My Account</a></li>
-                            <li class="divider"></li>
-                            <li>@Html.ActionLink("Logout", "LogOut", "LogOut")</li>
-                        </ul>
                     </li>
                 </ul>
-            }
-        </div>
-    </div>
-</div>
-<script src="~/Scripts/jquery-3.3.1.js"></script>
-<script>
-    $('ul.nav li.dropdown').hover(function () {
-        $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
-    }, function () {
-        $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
-    });
-</script>
+
+                <div class="navbar-header">
+                    <img src="~/Images/starmeds.png" width="50" height="50" alt="StarMeds">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    @Html.ActionLink("StarMeds", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+                </div>
+
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                </div>
+            </div>
+        </div>*@
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
