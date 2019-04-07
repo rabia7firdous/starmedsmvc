@@ -1,74 +1,59 @@
-﻿@model StarMedsMVC.Product
+﻿@model List<Product>
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Products";
 }
 
 <h2>Details</h2>
 
 <div>
-    <h4>Product</h4>
+    <h4>Products</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Product_Name)
-        </dt>
+    @if (Model.Count>0)
+	{
+        foreach (var product in Model)
+	    {
+            <div class="item">
 
-        <dd>
-            @Html.DisplayFor(model => model.Product_Name)
-        </dd>
+                <div class="product-image"><img class="img-responsive" src="https://static2.medplusmart.com/products/HORL0071_S.jpg?v=51ae0a" alt="product-image"></div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Product_Price)
-        </dt>
+                <div class="product-info">
 
-        <dd>
-            @Html.DisplayFor(model => model.Product_Price)
-        </dd>
+                    <h6 class="caps lhgt20">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Product_Image)
-        </dt>
+                        <span class="productName">@product.Product_Name</span>
 
-        <dd>
-            @Html.DisplayFor(model => model.Product_Image)
-        </dd>
+                    </h6>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Product_Details)
-        </dt>
+                    <h6 class="price-text-color padding-t-b-5 margin-none">
 
-        <dd>
-            @Html.DisplayFor(model => model.Product_Details)
-        </dd>
+                        <strong class="large-text color-red">Rs @product.Product_Price</strong>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ExpiryDate)
-        </dt>
+                        <span class="strike">Rs @product.Product_Price+20</span>
 
-        <dd>
-            @Html.DisplayFor(model => model.ExpiryDate)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </dt>
+                        <span class="color-black">
+                            (<strong>Save Rs 52.00</strong>)
+                        </span>
 
-        <dd>
-            @Html.DisplayFor(model => model.Quantity)
-        </dd>
+                    </h6>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SubClassification.SubClassificationName)
-        </dt>
+                    <button class="btn btn-danger btn-block addToCartBtn" type="button">Add to Cart</button>
 
-        <dd>
-            @Html.DisplayFor(model => model.SubClassification.SubClassificationName)
-        </dd>
+                </div>
 
-    </dl>
+
+
+            </div>
+	    }
+	}
+    else
+    {
+        <h4>No Products Found</h4>
+    }
+
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Product_Id }) |
+
     @Html.ActionLink("Back to List", "Index")
 </p>

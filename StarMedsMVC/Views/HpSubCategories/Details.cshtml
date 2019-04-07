@@ -1,42 +1,45 @@
-﻿@model StarMedsMVC.SubCategory
+﻿@model List<SubCategory>
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Health Products SubCategories";
 }
 
 <h2>Details</h2>
 
 <div>
-    <h4>SubCategory</h4>
+    <h4>Health Products SubCategories</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.SubCatName)
-        </dt>
+    <div>
+        @foreach (var subCat in Model)
+        {
+            <div class="categories">
 
-        <dd>
-            @Html.DisplayFor(model => model.SubCatName)
-        </dd>
+                <div class="product-image">
+                    <a href='@Url.Action("Details", "HpSubClassifications", new { id = subCat.SubCat_Id })'>
+                        <img class="img-responsive" src="https://static2.medplusmart.com/products/HORL0071_S.jpg?v=51ae0a" alt="product-image">
+                    </a>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SubCatImage)
-        </dt>
+                <div class="product-info">
 
-        <dd>
-            @Html.DisplayFor(model => model.SubCatImage)
-        </dd>
+                    <h6 class="caps lhgt20">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </dt>
+                        <span class="productName">@subCat.SubCatName</span>
 
-        <dd>
-            @Html.DisplayFor(model => model.Category.CategoryName)
-        </dd>
+                    </h6>
+                </div>
+            </div>
+        }
 
-    </dl>
+    </div>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.SubCat_Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<style>
+    .categories {
+        width: 33%;
+        border: 1px solid red;
+        float: left;
+    }
+</style>

@@ -24,16 +24,14 @@ namespace StarMedsMVC.Controllers
         // GET: HpSubCategories/Details/5
         public ActionResult Details(int? id)
         {
+            List<SubCategory> subcategories = new List<SubCategory>();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SubCategory subCategory = db.SubCategories.Find(id);
-            if (subCategory == null)
-            {
-                return HttpNotFound();
-            }
-            return View(subCategory);
+            subcategories = db.SubCategories.Where(i => i.CategoryId == id).ToList();
+
+            return View(subcategories);
         }
 
         // GET: HpSubCategories/Create

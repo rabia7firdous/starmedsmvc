@@ -24,16 +24,17 @@ namespace StarMedsMVC.Controllers
         // GET: HpSubClassifications/Details/5
         public ActionResult Details(int? id)
         {
+            List<SubClassification> subclassifications = new List<SubClassification>();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SubClassification subClassification = db.SubClassifications.Find(id);
-            if (subClassification == null)
+            subclassifications = db.SubClassifications.Where(i => i.SubCat_Id ==id).ToList();
+            if (subclassifications == null)
             {
                 return HttpNotFound();
             }
-            return View(subClassification);
+            return View(subclassifications);
         }
 
         // GET: HpSubClassifications/Create

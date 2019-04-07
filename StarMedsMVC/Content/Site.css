@@ -206,15 +206,16 @@ nav.navbar.mart-nav ul.nav.navbar-nav .categories-drpdwn li a {
     }
 
     .cart-icon span.cart-number {
-    font-size: 17px;
-    margin-left: 3px;
-    font-weight: 600;
-    color: #2e7cc0;
+        font-size: 17px;
+        margin-left: 3px;
+        font-weight: 600;
+        color: #2e7cc0;
     }
+
     .cart-icon img {
-    width: 30px;
-    max-width: 30px;
-}
+        width: 30px;
+        max-width: 30px;
+    }
 
 .navbar.menu--navbar {
     float: left;
@@ -679,4 +680,11 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+
+.categories {
+  width: 33%;
+  border: 1px solid red;
+  float: left;
 }

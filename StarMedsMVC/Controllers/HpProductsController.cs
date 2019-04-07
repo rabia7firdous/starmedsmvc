@@ -24,16 +24,17 @@ namespace StarMedsMVC.Controllers
         // GET: HpProducts/Details/5
         public ActionResult Details(int? id)
         {
+            List<Product> products = new List<Product>();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
-            if (product == null)
+            products = db.Products.Where(i => i.SubClassificationId == id).ToList();
+            if (products == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(products);
         }
 
         // GET: HpProducts/Create

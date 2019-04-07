@@ -1,42 +1,44 @@
-﻿@model StarMedsMVC.SubClassification
+﻿@model  List<SubClassification>
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Health Products SubClassifications";
 }
 
 <h2>Details</h2>
 
 <div>
-    <h4>SubClassification</h4>
+    <h4>Health Products SubClassifications</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.SubClassificationName)
-        </dt>
+    <div>
+        @foreach (var subClassification in Model)
+        {
+            <div class="categories">
 
-        <dd>
-            @Html.DisplayFor(model => model.SubClassificationName)
-        </dd>
+                <div class="product-image">
+                    <a href='@Url.Action("Details", "HpProducts", new { id = subClassification.SubClassificationId })'>
+                        <img class="img-responsive" src="https://static2.medplusmart.com/products/HORL0071_S.jpg?v=51ae0a" alt="product-image">
+                    </a>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SubClassificationImage)
-        </dt>
+                <div class="product-info">
 
-        <dd>
-            @Html.DisplayFor(model => model.SubClassificationImage)
-        </dd>
+                    <h6 class="caps lhgt20">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SubCategory.SubCatName)
-        </dt>
+                        <span class="productName">@subClassification.SubClassificationName</span>
 
-        <dd>
-            @Html.DisplayFor(model => model.SubCategory.SubCatName)
-        </dd>
-
-    </dl>
+                    </h6>
+                </div>
+            </div>
+        }
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.SubClassificationId }) |
+<p>    
     @Html.ActionLink("Back to List", "Index")
 </p>
+<style>
+    .categories {
+        width: 33%;
+        border: 1px solid red;
+        float: left;
+    }
+</style>
