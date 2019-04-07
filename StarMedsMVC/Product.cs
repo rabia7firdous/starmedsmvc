@@ -20,6 +20,8 @@ namespace StarMedsMVC
         public byte[] Product_Image { get; set; }
         public string Product_Details { get; set; }
         public int SubClassificationId { get; set; }
+        public System.DateTime ExpiryDate { get; set; }
+        public string Quantity { get; set; }
     
         public virtual SubClassification SubClassification { get; set; }
     }

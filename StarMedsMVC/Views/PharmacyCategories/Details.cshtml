@@ -1,0 +1,26 @@
+﻿@model StarMedsMVC.PharmacyCategory
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PharmacyCategory</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PharmacyCategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PharmacyCategoryName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PharmacyCategoryId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

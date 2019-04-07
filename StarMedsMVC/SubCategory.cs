@@ -23,6 +23,7 @@ namespace StarMedsMVC
         public int SubCat_Id { get; set; }
         public string SubCatName { get; set; }
         public int CategoryId { get; set; }
+        public byte[] SubCatImage { get; set; }
     
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,0 +1,42 @@
+﻿@model StarMedsMVC.SubClassification
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SubClassification</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SubClassificationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubClassificationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubClassificationImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubClassificationImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubCategory.SubCatName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubCategory.SubCatName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SubClassificationId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

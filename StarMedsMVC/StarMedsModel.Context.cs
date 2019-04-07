@@ -18,7 +18,6 @@ namespace StarMedsMVC
         public starmedsdbEntities()
             : base("name=starmedsdbEntities")
         {
-            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -26,8 +25,11 @@ namespace StarMedsMVC
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<CustomerDetail> CustomerDetails { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<CustomerDetail> CustomerDetails { get; set; }
+        public virtual DbSet<PharmacyCategory> PharmacyCategories { get; set; }
+        public virtual DbSet<PharmacyProduct> PharmacyProducts { get; set; }
+        public virtual DbSet<PharmacySubCategory> PharmacySubCategories { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<SubCategory> SubCategories { get; set; }
         public virtual DbSet<SubClassification> SubClassifications { get; set; }

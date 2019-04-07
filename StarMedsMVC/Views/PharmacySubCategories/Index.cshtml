@@ -1,0 +1,45 @@
+﻿@model IEnumerable<StarMedsMVC.PharmacySubCategory>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PharmacySubCatName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PharmacySubCatImage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PharmacyCategory.PharmacyCategoryName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PharmacySubCatName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PharmacySubCatImage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PharmacyCategory.PharmacyCategoryName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PharmacySubCatId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PharmacySubCatId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PharmacySubCatId })
+        </td>
+    </tr>
+}
+
+</table>

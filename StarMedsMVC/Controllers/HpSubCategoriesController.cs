@@ -10,105 +10,112 @@ using StarMedsMVC;
 
 namespace StarMedsMVC.Controllers
 {
-    public class CategoriesController : Controller
+    public class HpSubCategoriesController : Controller
     {
         private starmedsdbEntities db = new starmedsdbEntities();
 
-        // GET: Categories
+        // GET: HpSubCategories
         public ActionResult Index()
         {
-            return View(db.Categories.ToList());
+            var subCategories = db.SubCategories.Include(s => s.Category);
+            return View(subCategories.ToList());
         }
 
-        // GET: Categories/Details/5
+        // GET: HpSubCategories/Details/5
         public ActionResult Details(int? id)
         {
-            List<SubCategory> subcategories = new List<SubCategory>();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            subcategories = db.SubCategories.Where(i => i.CategoryId == id).ToList();
-
-            return View(subcategories);
+            SubCategory subCategory = db.SubCategories.Find(id);
+            if (subCategory == null)
+            {
+                return HttpNotFound();
+            }
+            return View(subCategory);
         }
 
-        // GET: Categories/Create
+        // GET: HpSubCategories/Create
         public ActionResult Create()
         {
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName");
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: HpSubCategories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoryId,CategoryName")] Category category)
+        public ActionResult Create([Bind(Include = "SubCat_Id,SubCatName,CategoryId,SubCatImage")] SubCategory subCategory)
         {
             if (ModelState.IsValid)
             {
-                db.Categories.Add(category);
+                db.SubCategories.Add(subCategory);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(category);
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName", subCategory.CategoryId);
+            return View(subCategory);
         }
 
-        // GET: Categories/Edit/5
+        // GET: HpSubCategories/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-            if (category == null)
+            SubCategory subCategory = db.SubCategories.Find(id);
+            if (subCategory == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName", subCategory.CategoryId);
+            return View(subCategory);
         }
 
-        // POST: Categories/Edit/5
+        // POST: HpSubCategories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoryId,CategoryName")] Category category)
+        public ActionResult Edit([Bind(Include = "SubCat_Id,SubCatName,CategoryId,SubCatImage")] SubCategory subCategory)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(category).State = EntityState.Modified;
+                db.Entry(subCategory).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(category);
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName", subCategory.CategoryId);
+            return View(subCategory);
         }
 
-        // GET: Categories/Delete/5
+        // GET: HpSubCategories/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-            if (category == null)
+            SubCategory subCategory = db.SubCategories.Find(id);
+            if (subCategory == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(subCategory);
         }
 
-        // POST: Categories/Delete/5
+        // POST: HpSubCategories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
+            SubCategory subCategory = db.SubCategories.Find(id);
+            db.SubCategories.Remove(subCategory);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -23,16 +23,49 @@
           <Property Name="Password" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="CustomerName" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
+        <EntityType Name="PharmacyCategory">
+          <Key>
+            <PropertyRef Name="PharmacyCategoryId" />
+          </Key>
+          <Property Name="PharmacyCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PharmacyCategoryName" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PharmacyProducts">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="varchar(max)" Nullable="false" />
+          <Property Name="ProductPrice" Type="money" Nullable="false" />
+          <Property Name="ProductImage" Type="image" Nullable="false" />
+          <Property Name="ProductDetails" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PharmacySubCatId" Type="int" Nullable="false" />
+          <Property Name="ExpiryDate" Type="date" Nullable="false" />
+          <Property Name="Quantity" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Manufacturer" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PharmacySubCategory">
+          <Key>
+            <PropertyRef Name="PharmacySubCatId" />
+          </Key>
+          <Property Name="PharmacySubCatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PharmacySubCatName" Type="varchar(max)" Nullable="false" />
+          <Property Name="PharmacyCategoryId" Type="int" Nullable="false" />
+          <Property Name="PharmacySubCatImage" Type="image" />
+        </EntityType>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="Product Id" />
           </Key>
-          <Property Name="Product Id" Type="int" Nullable="false" />
+          <Property Name="Product Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Product Name" Type="varchar(max)" Nullable="false" />
           <Property Name="Product Price" Type="money" Nullable="false" />
           <Property Name="Product Image" Type="image" Nullable="false" />
-          <Property Name="Product Details" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="SubClassificationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product Details" Type="varchar(max)" Nullable="false" />
+          <Property Name="SubClassificationId" Type="int" Nullable="false" />
+          <Property Name="ExpiryDate" Type="date" Nullable="false" />
+          <Property Name="Quantity" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="SubCategory">
           <Key>
@@ -41,6 +74,7 @@
           <Property Name="SubCat Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SubCatName" Type="varchar(max)" Nullable="false" />
           <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="SubCatImage" Type="image" />
         </EntityType>
         <EntityType Name="SubClassification">
           <Key>
@@ -49,7 +83,32 @@
           <Property Name="SubClassificationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SubClassificationName" Type="varchar(max)" Nullable="false" />
           <Property Name="SubCat Id" Type="int" Nullable="false" />
+          <Property Name="SubClassificationImage" Type="image" />
         </EntityType>
+        <Association Name="FK_PharmacyProducts_PharmacySubCategory">
+          <End Role="PharmacySubCategory" Type="Self.PharmacySubCategory" Multiplicity="1" />
+          <End Role="PharmacyProducts" Type="Self.PharmacyProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PharmacySubCategory">
+              <PropertyRef Name="PharmacySubCatId" />
+            </Principal>
+            <Dependent Role="PharmacyProducts">
+              <PropertyRef Name="PharmacySubCatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PharmacySubCategory_PharmacyCategory">
+          <End Role="PharmacyCategory" Type="Self.PharmacyCategory" Multiplicity="1" />
+          <End Role="PharmacySubCategory" Type="Self.PharmacySubCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PharmacyCategory">
+              <PropertyRef Name="PharmacyCategoryId" />
+            </Principal>
+            <Dependent Role="PharmacySubCategory">
+              <PropertyRef Name="PharmacyCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Products_SubClassification">
           <End Role="SubClassification" Type="Self.SubClassification" Multiplicity="1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
@@ -89,9 +148,20 @@
         <EntityContainer Name="starmeds_EntitiesStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerDetails" EntityType="Self.CustomerDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PharmacyCategory" EntityType="Self.PharmacyCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PharmacyProducts" EntityType="Self.PharmacyProducts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PharmacySubCategory" EntityType="Self.PharmacySubCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubCategory" EntityType="Self.SubCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubClassification" EntityType="Self.SubClassification" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PharmacyProducts_PharmacySubCategory" Association="Self.FK_PharmacyProducts_PharmacySubCategory">
+            <End Role="PharmacySubCategory" EntitySet="PharmacySubCategory" />
+            <End Role="PharmacyProducts" EntitySet="PharmacyProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PharmacySubCategory_PharmacyCategory" Association="Self.FK_PharmacySubCategory_PharmacyCategory">
+            <End Role="PharmacyCategory" EntitySet="PharmacyCategory" />
+            <End Role="PharmacySubCategory" EntitySet="PharmacySubCategory" />
+          </AssociationSet>
           <AssociationSet Name="FK_Products_SubClassification" Association="Self.FK_Products_SubClassification">
             <End Role="SubClassification" EntitySet="SubClassification" />
             <End Role="Products" EntitySet="Products" />
@@ -109,26 +179,26 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="starmeds_Entities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="CustomerDetail">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CustomerName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
         <EntityContainer Name="starmedsdbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CustomerDetails" EntityType="Self.CustomerDetail" />
           <EntitySet Name="Categories" EntityType="starmeds_Entities.Category" />
+          <EntitySet Name="CustomerDetails" EntityType="starmeds_Entities.CustomerDetail" />
+          <EntitySet Name="PharmacyCategories" EntityType="starmeds_Entities.PharmacyCategory" />
+          <EntitySet Name="PharmacyProducts" EntityType="starmeds_Entities.PharmacyProduct" />
+          <EntitySet Name="PharmacySubCategories" EntityType="starmeds_Entities.PharmacySubCategory" />
           <EntitySet Name="Products" EntityType="starmeds_Entities.Product" />
           <EntitySet Name="SubCategories" EntityType="starmeds_Entities.SubCategory" />
           <EntitySet Name="SubClassifications" EntityType="starmeds_Entities.SubClassification" />
           <AssociationSet Name="FK_SubCategory_Category" Association="starmeds_Entities.FK_SubCategory_Category">
             <End Role="Category" EntitySet="Categories" />
             <End Role="SubCategory" EntitySet="SubCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PharmacySubCategory_PharmacyCategory" Association="starmeds_Entities.FK_PharmacySubCategory_PharmacyCategory">
+            <End Role="PharmacyCategory" EntitySet="PharmacyCategories" />
+            <End Role="PharmacySubCategory" EntitySet="PharmacySubCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PharmacyProducts_PharmacySubCategory" Association="starmeds_Entities.FK_PharmacyProducts_PharmacySubCategory">
+            <End Role="PharmacySubCategory" EntitySet="PharmacySubCategories" />
+            <End Role="PharmacyProduct" EntitySet="PharmacyProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_Products_SubClassification" Association="starmeds_Entities.FK_Products_SubClassification">
             <End Role="SubClassification" EntitySet="SubClassifications" />
@@ -147,16 +217,64 @@
           <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SubCategories" Relationship="starmeds_Entities.FK_SubCategory_Category" FromRole="Category" ToRole="SubCategory" />
         </EntityType>
+        <EntityType Name="CustomerDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerName" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PharmacyCategory">
+          <Key>
+            <PropertyRef Name="PharmacyCategoryId" />
+          </Key>
+          <Property Name="PharmacyCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PharmacyCategoryName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PharmacySubCategories" Relationship="starmeds_Entities.FK_PharmacySubCategory_PharmacyCategory" FromRole="PharmacyCategory" ToRole="PharmacySubCategory" />
+        </EntityType>
+        <EntityType Name="PharmacyProduct">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProductPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="ProductImage" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductDetails" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PharmacySubCatId" Type="Int32" Nullable="false" />
+          <Property Name="ExpiryDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Quantity" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProductType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Manufacturer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PharmacySubCategory" Relationship="starmeds_Entities.FK_PharmacyProducts_PharmacySubCategory" FromRole="PharmacyProduct" ToRole="PharmacySubCategory" />
+        </EntityType>
+        <EntityType Name="PharmacySubCategory">
+          <Key>
+            <PropertyRef Name="PharmacySubCatId" />
+          </Key>
+          <Property Name="PharmacySubCatId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PharmacySubCatName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PharmacyCategoryId" Type="Int32" Nullable="false" />
+          <Property Name="PharmacySubCatImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="PharmacyCategory" Relationship="starmeds_Entities.FK_PharmacySubCategory_PharmacyCategory" FromRole="PharmacySubCategory" ToRole="PharmacyCategory" />
+          <NavigationProperty Name="PharmacyProducts" Relationship="starmeds_Entities.FK_PharmacyProducts_PharmacySubCategory" FromRole="PharmacySubCategory" ToRole="PharmacyProduct" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="Product_Id" />
           </Key>
-          <Property Name="Product_Id" Type="Int32" Nullable="false" />
+          <Property Name="Product_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Product_Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Product_Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="Product_Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-          <Property Name="Product_Details" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SubClassificationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Details" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SubClassificationId" Type="Int32" Nullable="false" />
+          <Property Name="ExpiryDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Quantity" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SubClassification" Relationship="starmeds_Entities.FK_Products_SubClassification" FromRole="Product" ToRole="SubClassification" />
         </EntityType>
         <EntityType Name="SubCategory">
@@ -166,6 +284,7 @@
           <Property Name="SubCat_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SubCatName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="SubCatImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Category" Relationship="starmeds_Entities.FK_SubCategory_Category" FromRole="SubCategory" ToRole="Category" />
           <NavigationProperty Name="SubClassifications" Relationship="starmeds_Entities.FK_SubClassification_SubCategory" FromRole="SubCategory" ToRole="SubClassification" />
         </EntityType>
@@ -176,6 +295,7 @@
           <Property Name="SubClassificationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SubClassificationName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="SubCat_Id" Type="Int32" Nullable="false" />
+          <Property Name="SubClassificationImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Products" Relationship="starmeds_Entities.FK_Products_SubClassification" FromRole="SubClassification" ToRole="Product" />
           <NavigationProperty Name="SubCategory" Relationship="starmeds_Entities.FK_SubClassification_SubCategory" FromRole="SubClassification" ToRole="SubCategory" />
         </EntityType>
@@ -188,6 +308,30 @@
             </Principal>
             <Dependent Role="SubCategory">
               <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PharmacySubCategory_PharmacyCategory">
+          <End Type="starmeds_Entities.PharmacyCategory" Role="PharmacyCategory" Multiplicity="1" />
+          <End Type="starmeds_Entities.PharmacySubCategory" Role="PharmacySubCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PharmacyCategory">
+              <PropertyRef Name="PharmacyCategoryId" />
+            </Principal>
+            <Dependent Role="PharmacySubCategory">
+              <PropertyRef Name="PharmacyCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PharmacyProducts_PharmacySubCategory">
+          <End Type="starmeds_Entities.PharmacySubCategory" Role="PharmacySubCategory" Multiplicity="1" />
+          <End Type="starmeds_Entities.PharmacyProduct" Role="PharmacyProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PharmacySubCategory">
+              <PropertyRef Name="PharmacySubCatId" />
+            </Principal>
+            <Dependent Role="PharmacyProduct">
+              <PropertyRef Name="PharmacySubCatId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -215,24 +359,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="starmeds_EntitiesStoreContainer" CdmEntityContainer="starmedsdbEntities">
-          <EntitySetMapping Name="CustomerDetails">
-            <EntityTypeMapping TypeName="starmeds_Entities.CustomerDetail">
-              <MappingFragment StoreEntitySet="CustomerDetails">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="starmeds_Entities.Category">
               <MappingFragment StoreEntitySet="Category">
@@ -241,9 +373,57 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CustomerDetails">
+            <EntityTypeMapping TypeName="starmeds_Entities.CustomerDetail">
+              <MappingFragment StoreEntitySet="CustomerDetails">
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PharmacyCategories">
+            <EntityTypeMapping TypeName="starmeds_Entities.PharmacyCategory">
+              <MappingFragment StoreEntitySet="PharmacyCategory">
+                <ScalarProperty Name="PharmacyCategoryName" ColumnName="PharmacyCategoryName" />
+                <ScalarProperty Name="PharmacyCategoryId" ColumnName="PharmacyCategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PharmacyProducts">
+            <EntityTypeMapping TypeName="starmeds_Entities.PharmacyProduct">
+              <MappingFragment StoreEntitySet="PharmacyProducts">
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="ProductType" ColumnName="ProductType" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="PharmacySubCatId" ColumnName="PharmacySubCatId" />
+                <ScalarProperty Name="ProductDetails" ColumnName="ProductDetails" />
+                <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PharmacySubCategories">
+            <EntityTypeMapping TypeName="starmeds_Entities.PharmacySubCategory">
+              <MappingFragment StoreEntitySet="PharmacySubCategory">
+                <ScalarProperty Name="PharmacySubCatImage" ColumnName="PharmacySubCatImage" />
+                <ScalarProperty Name="PharmacyCategoryId" ColumnName="PharmacyCategoryId" />
+                <ScalarProperty Name="PharmacySubCatName" ColumnName="PharmacySubCatName" />
+                <ScalarProperty Name="PharmacySubCatId" ColumnName="PharmacySubCatId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="starmeds_Entities.Product">
               <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
                 <ScalarProperty Name="SubClassificationId" ColumnName="SubClassificationId" />
                 <ScalarProperty Name="Product_Details" ColumnName="Product Details" />
                 <ScalarProperty Name="Product_Image" ColumnName="Product Image" />
@@ -256,6 +436,7 @@
           <EntitySetMapping Name="SubCategories">
             <EntityTypeMapping TypeName="starmeds_Entities.SubCategory">
               <MappingFragment StoreEntitySet="SubCategory">
+                <ScalarProperty Name="SubCatImage" ColumnName="SubCatImage" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="SubCatName" ColumnName="SubCatName" />
                 <ScalarProperty Name="SubCat_Id" ColumnName="SubCat Id" />
@@ -265,6 +446,7 @@
           <EntitySetMapping Name="SubClassifications">
             <EntityTypeMapping TypeName="starmeds_Entities.SubClassification">
               <MappingFragment StoreEntitySet="SubClassification">
+                <ScalarProperty Name="SubClassificationImage" ColumnName="SubClassificationImage" />
                 <ScalarProperty Name="SubCat_Id" ColumnName="SubCat Id" />
                 <ScalarProperty Name="SubClassificationName" ColumnName="SubClassificationName" />
                 <ScalarProperty Name="SubClassificationId" ColumnName="SubClassificationId" />
