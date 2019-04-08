@@ -47,10 +47,19 @@ namespace StarMedsMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SubCat_Id,SubCatName,CategoryId,SubCatImage")] SubCategory subCategory)
+        public ActionResult Create([Bind(Include = "SubCat_Id,SubCatName,CategoryId", Exclude = "SubCatImage")] SubCategory subCategory, HttpPostedFileBase SubCatImage)
         {
             if (ModelState.IsValid)
             {
+                if (SubCatImage != null)
+                {
+                    if (SubCatImage.ContentLength > 0)
+                    {
+                        byte[] imgBinaryData = new byte[SubCatImage.ContentLength];
+                        int readresult = SubCatImage.InputStream.Read(imgBinaryData, 0, SubCatImage.ContentLength);
+                        subCategory.SubCatImage = imgBinaryData;
+                    }
+                }
                 db.SubCategories.Add(subCategory);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -81,10 +90,19 @@ namespace StarMedsMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SubCat_Id,SubCatName,CategoryId,SubCatImage")] SubCategory subCategory)
+        public ActionResult Edit([Bind(Include = "SubCat_Id,SubCatName,CategoryId", Exclude = "SubCatImage")] SubCategory subCategory, HttpPostedFileBase SubCatImage)
         {
             if (ModelState.IsValid)
             {
+                if (SubCatImage != null)
+                {
+                    if (SubCatImage.ContentLength > 0)
+                    {
+                        byte[] imgBinaryData = new byte[SubCatImage.ContentLength];
+                        int readresult = SubCatImage.InputStream.Read(imgBinaryData, 0, SubCatImage.ContentLength);
+                        subCategory.SubCatImage = imgBinaryData;
+                    }
+                }
                 db.Entry(subCategory).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -50,10 +50,19 @@ namespace StarMedsMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SubClassificationId,SubClassificationName,SubCat_Id,SubClassificationImage")] SubClassification subClassification)
+        public ActionResult Create([Bind(Include = "SubClassificationId,SubClassificationName,SubCat_Id", Exclude = "SubClassificationImage")] SubClassification subClassification, HttpPostedFileBase SubClassificationImage)
         {
             if (ModelState.IsValid)
             {
+                if (SubClassificationImage != null)
+                {
+                    if (SubClassificationImage.ContentLength > 0)
+                    {
+                        byte[] imgBinaryData = new byte[SubClassificationImage.ContentLength];
+                        int readresult = SubClassificationImage.InputStream.Read(imgBinaryData, 0, SubClassificationImage.ContentLength);
+                        subClassification.SubClassificationImage = imgBinaryData;
+                    }
+                }
                 db.SubClassifications.Add(subClassification);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -84,10 +93,19 @@ namespace StarMedsMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SubClassificationId,SubClassificationName,SubCat_Id,SubClassificationImage")] SubClassification subClassification)
+        public ActionResult Edit([Bind(Include = "SubClassificationId,SubClassificationName,SubCat_Id", Exclude = "SubClassificationImage")] SubClassification subClassification, HttpPostedFileBase SubClassificationImage)
         {
             if (ModelState.IsValid)
             {
+                if (SubClassificationImage != null)
+                {
+                    if (SubClassificationImage.ContentLength > 0)
+                    {
+                        byte[] imgBinaryData = new byte[SubClassificationImage.ContentLength];
+                        int readresult = SubClassificationImage.InputStream.Read(imgBinaryData, 0, SubClassificationImage.ContentLength);
+                        subClassification.SubClassificationImage = imgBinaryData;
+                    }
+                }
                 db.Entry(subClassification).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -19,7 +19,16 @@
             <div class="product">
 
                 <div class="product-image">
-                    <img  src="data:image/jpeg;base64,@(Convert.ToBase64String(product.Product_Image))">
+                    <a href='@Url.Action("ProductDetails", "HpProducts", new { id = product.Product_Id })'>
+                        @if (product.Product_Image != null)
+                        {
+                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(product.Product_Image))">
+                        }
+                        else
+                        {
+                            <img class="img-responsive" src="~/Images/no-image-found.png" alt="product-image">
+                        }
+                    </a>                    
                 </div>
 
                 <div class="product-info">

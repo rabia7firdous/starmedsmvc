@@ -16,13 +16,18 @@
 
                 <div class="product-image">
                     <a href='@Url.Action("Details", "HpSubClassifications", new { id = subCat.SubCat_Id })'>
-                        <img class="img-responsive" src="https://static2.medplusmart.com/products/HORL0071_S.jpg?v=51ae0a" alt="product-image">
+                        @if (subCat.SubCatImage != null)
+                        {
+                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(subCat.SubCatImage))">
+                        }
+                        else
+                        {
+                            <img class="img-responsive" src="~/Images/no-image-found.png" alt="product-image">
+                        }                        
                     </a>
                 </div>
 
                 <div class="product-info">
-
-
                         <h3>@subCat.SubCatName</h3>
                 </div>
             </div>

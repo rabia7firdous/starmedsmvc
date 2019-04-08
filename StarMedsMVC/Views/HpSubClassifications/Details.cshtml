@@ -16,7 +16,14 @@
 
                 <div class="product-image">
                     <a href='@Url.Action("Details", "HpProducts", new { id = subClassification.SubClassificationId })'>
-                        <img class="img-responsive" src="https://static2.medplusmart.com/products/HORL0071_S.jpg?v=51ae0a" alt="product-image">
+                        @if (subClassification.SubClassificationImage != null)
+                        {
+                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(subClassification.SubClassificationImage))">
+                        }
+                        else
+                        {
+                            <img class="img-responsive" src="~/Images/no-image-found.png" alt="product-image">
+                        }
                     </a>
                 </div>
 

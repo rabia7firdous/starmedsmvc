@@ -139,6 +139,23 @@ namespace StarMedsMVC.Controllers
             return RedirectToAction("Index");
         }
 
+
+        // GET: HpProducts/Details/5
+        public ActionResult ProductDetails(int? id)
+        {
+           Product product = new Product();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            product = db.Products.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View(product);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

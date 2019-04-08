@@ -29,7 +29,14 @@
             @Html.DisplayFor(modelItem => item.SubClassificationName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SubClassificationImage)
+            @if (item.SubClassificationImage != null)
+            {
+                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(item.SubClassificationImage))">
+            }
+            else
+            {
+                <h4>No Image</h4>
+            }            
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.SubCategory.SubCatName)
