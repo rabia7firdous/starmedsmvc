@@ -9,7 +9,7 @@
 <div>
     <h4>Health Products SubClassifications</h4>
     <hr />
-    <div>
+    <div class="categories-wrapper">
         @foreach (var subClassification in Model)
         {
             <div class="categories">
@@ -22,11 +22,8 @@
 
                 <div class="product-info">
 
-                    <h6 class="caps lhgt20">
 
-                        <span class="productName">@subClassification.SubClassificationName</span>
-
-                    </h6>
+                        <h3>@subClassification.SubClassificationName</h3>
                 </div>
             </div>
         }
@@ -35,10 +32,3 @@
 <p>    
     @Html.ActionLink("Back to List", "Index")
 </p>
-<style>
-    .categories {
-        width: 33%;
-        border: 1px solid red;
-        float: left;
-    }
-</style>

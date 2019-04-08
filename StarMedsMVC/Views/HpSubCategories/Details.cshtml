@@ -8,8 +8,8 @@
 
 <div>
     <h4>Health Products SubCategories</h4>
-    <hr />
-    <div>
+    <hr class="dotted-line">
+    <div class="categories-wrapper">
         @foreach (var subCat in Model)
         {
             <div class="categories">
@@ -22,24 +22,15 @@
 
                 <div class="product-info">
 
-                    <h6 class="caps lhgt20">
 
-                        <span class="productName">@subCat.SubCatName</span>
-
-                    </h6>
+                        <h3>@subCat.SubCatName</h3>
                 </div>
             </div>
         }
 
     </div>
 </div>
-<p>
+<p class="back-list">
     @Html.ActionLink("Back to List", "Index")
 </p>
-<style>
-    .categories {
-        width: 33%;
-        border: 1px solid red;
-        float: left;
-    }
-</style>
+

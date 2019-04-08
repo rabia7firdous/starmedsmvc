@@ -6,17 +6,20 @@
 
 <h2>Details</h2>
 
-<div>
+
     <h4>Products</h4>
-    <hr />
-    @if (Model.Count>0)
-	{
+    <hr class="dotted-line">
+
+<div class="product-wrapper">
+
+    @if (Model.Count > 0)
+    {
         foreach (var product in Model)
-	    {
+        {
             <div class="product">
 
                 <div class="product-image">
-                    <img style="height:150px;width:150px" src="data:image/jpeg;base64,@(Convert.ToBase64String(product.Product_Image))">                    
+                    <img  src="data:image/jpeg;base64,@(Convert.ToBase64String(product.Product_Image))">
                 </div>
 
                 <div class="product-info">
@@ -46,9 +49,8 @@
 
 
 
-            </div>
-	    }
-	}
+            </div>    }
+    }
     else
     {
         <h4>No Products Found</h4>
@@ -59,10 +61,3 @@
 
     @Html.ActionLink("Back to List", "Index")
 </p>
-<style>
-    .product {
-        width: 33%;
-        border: 1px solid red;
-        float: left;
-    }
-</style>
