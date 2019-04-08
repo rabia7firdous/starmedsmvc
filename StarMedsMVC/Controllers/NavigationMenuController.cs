@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using StarMedsMVC.Models;
 
 namespace StarMedsMVC.Controllers
 {
@@ -12,12 +13,19 @@ namespace StarMedsMVC.Controllers
         // GET: NavigationMenu
         public ActionResult Index()
         {
-            List<Category> categories =  new List<Category>();
+            NavigationMenuModel nav = new NavigationMenuModel();
+            List<Category> hpcategories =  new List<Category>();
+            List<PharmacyCategory> pharmacycategories = new List<PharmacyCategory>();
             using (starmedsdbEntities db = new starmedsdbEntities())
             {
-                categories = db.Categories.Include(sc => sc.SubCategories.Select(s => s.SubClassifications)).ToList();                
+                hpcategories = db.Categories.Include(sc => sc.SubCategories.Select(s => s.SubClassifications)).ToList();
+                pharmacycategories = db.PharmacyCategories.Include(sc => sc.PharmacySubCategories).ToList();
+                nav.HealthProductCategories = new List<Category>();
+                nav.HealthProductCategories.AddRange(hpcategories);
+                nav.PharmacyCategories = new List<PharmacyCategory>();
+                nav.PharmacyCategories.AddRange(pharmacycategories);
             }
-            return PartialView("Index", categories);
+            return PartialView("Index", nav);
         }
     }
 }

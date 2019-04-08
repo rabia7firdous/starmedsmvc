@@ -1,4 +1,4 @@
-﻿@model  List<Category>
+﻿@model  StarMedsMVC.Models.NavigationMenuModel
 
 <div class="container-fluid padding-none">
     <div class="row margin-none">
@@ -80,152 +80,102 @@
                     <span class="sr-only">Toggle Menu</span>
                     <i class="fa fa-bars"></i>
                 </button>
-            </div>
-
-
+            </div>            
             <div class="navbar-collapse collapse" id="main-navigation">
                 <!-- Main Menu -->
                 <ul class="nav navbar-nav navbar-right">
                     <li class="mega-sub-menu">
                         <a href="#">Health Products</a>         <!-- Mega Menu -->
                         <ul class="mega-dropdown row">
+                            @for (int i = 0; i < 2; i++)
+                            {
                             <li class="col-sm-3">
                                 <ul class="mega-menu-items">
-                                    @foreach (var category in Model)
-                                    {
-                                    <li class="heading">@Html.ActionLink(category.CategoryName, "Details", "HpSubCategories", new { id = category.CategoryId }, null)</li>
-                                        foreach (var subcat in category.SubCategories)
+                                    <li class="heading">@Html.ActionLink(Model.HealthProductCategories[i].CategoryName, "Details", "HpSubCategories", new { id = Model.HealthProductCategories[i].CategoryId }, null)</li>
+                                    @foreach (var subcat in Model.HealthProductCategories[i].SubCategories)
                                         {
-                                    <li>@Html.ActionLink(@subcat.SubCatName, "Details", "HpSubClassifications", new { id = subcat.SubCat_Id}, null)</li>
+                                    <li>@Html.ActionLink(@subcat.SubCatName, "Details", "HpSubClassifications", new { id = subcat.SubCat_Id }, null)</li>
                                         }
                                     <li class="hr"></li>
-                                    }
-                                    @*<li class="heading">Doctor Grid</li>
-                                        <li><a href="doctors-style-1.html">Doctor Style 1</a></li>
-                                        <li><a href="doctors-style-2.html">Doctor Style 2</a></li>
-                                        <li><a href="doctors-mini.html">Doctor Mini</a></li>
-                                        <li class="hr"></li>
-                                        <li class="heading">Doctor Profile</li>
-                                        <li><a href="doctor-single.html">Doctor Single</a></li>
-                                        <li><a href="doctor-single-sidebar.html">Doctor Single with Sidebar</a></li>*@
                                 </ul>
                             </li>
-                            @*<li class="col-sm-3">
-                                    <ul class="mega-menu-items">
-                                        <li class="heading">Department Grid</li>
-                                        <li><a href="departments-style-1.html">Department Style 1</a></li>
-                                        <li><a href="departments-style-2.html">Department Style 2</a></li>
-                                        <li><a href="departments-mini.html">Department Mini</a></li>
-                                        <li><a href="departments-list.html">Department List</a></li>
-                                        <li class="hr"></li>
-                                        <li class="heading">Department Details</li>
-                                        <li><a href="department-single.html">Department Single</a></li>
-                                        <li><a href="department-single-sidebar.html">Department Single with Sidebar</a></li>
-                                    </ul>
-                                </li>
-                                <li class="col-sm-3">
-                                    <ul class="mega-menu-items">
-                                        <li class="heading">Appointments</li>
-                                        <li><a href="appointment-advanced.html">Appointment Advanced</a></li>
-                                        <li><a href="appointment-basic.html">Appointment Basic</a></li>
-                                        <li><a href="book-appointment-form.html">Book Appointment Form</a></li>
-                                        <li class="hr"></li>
-                                        <li class="heading">About Medwise</li>
-                                        <li><a href="about.html">About Us</a></li>
-                                        <li><a href="why-us.html">Why Us</a></li>
-                                        <li><a href="process.html">Process</a></li>
-                                        <li><a href="features.html">Features</a></li>
-                                        <li><a href="testimonials.html">Testimonials</a></li>
-                                        <li><a href="careers.html">Careers</a></li>
-                                    </ul>
-                                </li>
-                                <li class="col-sm-3">
-                                    <ul class="mega-menu-items">
-                                        <li class="heading">Other Pages</li>
-                                        <li><a href="gallery.html">Gallery</a></li>
-                                        <li><a href="events.html">Events</a></li>
-                                        <li><a href="download-app.html">Download App</a></li>
-                                        <li><a href="pricing-tables.html">Pricing Tables</a></li>
-                                        <li><a href="offers.html">Offers</a></li>
-                                        <li><a href="dos-donts.html">Dos &amp; Donts</a></li>
-                                        <li><a href="question-answer.html">Q and A</a></li>
-                                        <li><a href="policies.html">Policies</a></li>
-                                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                                        <li><a href="404.html">404-Not Found</a></li>
-                                    </ul>
-                                </li>*@
+                            }
+
+                            @for (int i = 2; i < 4; i++)
+                            {
+                            <li class="col-sm-3">
+                                <ul class="mega-menu-items">
+                                    <li class="heading">@Html.ActionLink(Model.HealthProductCategories[i].CategoryName, "Details", "HpSubCategories", new { id = Model.HealthProductCategories[i].CategoryId }, null)</li>
+                                    @foreach (var subcat in Model.HealthProductCategories[i].SubCategories)
+                                        {
+                                    <li>@Html.ActionLink(@subcat.SubCatName, "Details", "HpSubClassifications", new { id = subcat.SubCat_Id }, null)</li>
+                                        }
+                                    <li class="hr"></li>
+                                </ul>
+                            </li>
+                            }
+
+                            @for (int i = 4; i < Model.HealthProductCategories.Count; i++)
+                            {
+                            <li class="col-sm-3">
+                                <ul class="mega-menu-items">
+                                    <li class="heading">@Html.ActionLink(Model.HealthProductCategories[i].CategoryName, "Details", "HpSubCategories", new { id = Model.HealthProductCategories[i].CategoryId }, null)</li>
+                                    @foreach (var subcat in Model.HealthProductCategories[i].SubCategories)
+                                        {
+                                    <li>@Html.ActionLink(@subcat.SubCatName, "Details", "HpSubClassifications", new { id = subcat.SubCat_Id }, null)</li>
+                                        }
+                                    <li class="hr"></li>
+                                </ul>
+                            </li>
+                            }
                         </ul>
                     </li>
                     <li class="mega-sub-menu">
                         <a href="#">Pharmacy</a>         <!-- Mega Menu -->
                         <ul class="mega-dropdown row">
-                            <li class="col-sm-3">
-                                <ul class="mega-menu-items">
-                                    @foreach (var category in Model)
-                                    {
-                                        <li class="heading">@Html.ActionLink(category.CategoryName, "Details", "HpSubCategories", new { id = category.CategoryId }, null)</li>
-                                        foreach (var subcat in category.SubCategories)
+                            @for (int i = 0; i < 2; i++)
+                            {
+                                <li class="col-sm-3">
+                                    <ul class="mega-menu-items">
+                                        <li class="heading">@Html.ActionLink(Model.PharmacyCategories[i].PharmacyCategoryName, "Details", "PharmacySubCategories", new { id = Model.PharmacyCategories[i].PharmacyCategoryId }, null)</li>
+                                        @foreach (var subcat in Model.PharmacyCategories[i].PharmacySubCategories)
                                         {
-                                            <li>@Html.ActionLink(@subcat.SubCatName, "Details", "HpSubClassifications", new { id = subcat.SubCat_Id }, null)</li>
+                                        <li>@Html.ActionLink(@subcat.PharmacySubCatName, "Details", "PharmacyProducts", new { id = subcat.PharmacySubCatId }, null)</li>
                                         }
                                         <li class="hr"></li>
-                                    }
-                                    @*<li class="heading">Doctor Grid</li>
-                                        <li><a href="doctors-style-1.html">Doctor Style 1</a></li>
-                                        <li><a href="doctors-style-2.html">Doctor Style 2</a></li>
-                                        <li><a href="doctors-mini.html">Doctor Mini</a></li>
-                                        <li class="hr"></li>
-                                        <li class="heading">Doctor Profile</li>
-                                        <li><a href="doctor-single.html">Doctor Single</a></li>
-                                        <li><a href="doctor-single-sidebar.html">Doctor Single with Sidebar</a></li>*@
-                                </ul>
-                            </li>
-                            @*<li class="col-sm-3">
-                                    <ul class="mega-menu-items">
-                                        <li class="heading">Department Grid</li>
-                                        <li><a href="departments-style-1.html">Department Style 1</a></li>
-                                        <li><a href="departments-style-2.html">Department Style 2</a></li>
-                                        <li><a href="departments-mini.html">Department Mini</a></li>
-                                        <li><a href="departments-list.html">Department List</a></li>
-                                        <li class="hr"></li>
-                                        <li class="heading">Department Details</li>
-                                        <li><a href="department-single.html">Department Single</a></li>
-                                        <li><a href="department-single-sidebar.html">Department Single with Sidebar</a></li>
                                     </ul>
                                 </li>
+                            }
+
+                            @for (int i = 2; i < 4; i++)
+                            {
                                 <li class="col-sm-3">
                                     <ul class="mega-menu-items">
-                                        <li class="heading">Appointments</li>
-                                        <li><a href="appointment-advanced.html">Appointment Advanced</a></li>
-                                        <li><a href="appointment-basic.html">Appointment Basic</a></li>
-                                        <li><a href="book-appointment-form.html">Book Appointment Form</a></li>
+                                        <li class="heading">@Html.ActionLink(Model.PharmacyCategories[i].PharmacyCategoryName, "Details", "PharmacySubCategories", new { id = Model.PharmacyCategories[i].PharmacyCategoryId }, null)</li>
+                                        @foreach (var subcat in Model.PharmacyCategories[i].PharmacySubCategories)
+                                        {
+                                            <li>@Html.ActionLink(@subcat.PharmacySubCatName, "Details", "PharmacyProducts", new { id = subcat.PharmacySubCatId }, null)</li>
+                                        }
                                         <li class="hr"></li>
-                                        <li class="heading">About Medwise</li>
-                                        <li><a href="about.html">About Us</a></li>
-                                        <li><a href="why-us.html">Why Us</a></li>
-                                        <li><a href="process.html">Process</a></li>
-                                        <li><a href="features.html">Features</a></li>
-                                        <li><a href="testimonials.html">Testimonials</a></li>
-                                        <li><a href="careers.html">Careers</a></li>
                                     </ul>
                                 </li>
+                            }
+
+                            @for (int i = 4; i < Model.HealthProductCategories.Count; i++)
+                            {
                                 <li class="col-sm-3">
                                     <ul class="mega-menu-items">
-                                        <li class="heading">Other Pages</li>
-                                        <li><a href="gallery.html">Gallery</a></li>
-                                        <li><a href="events.html">Events</a></li>
-                                        <li><a href="download-app.html">Download App</a></li>
-                                        <li><a href="pricing-tables.html">Pricing Tables</a></li>
-                                        <li><a href="offers.html">Offers</a></li>
-                                        <li><a href="dos-donts.html">Dos &amp; Donts</a></li>
-                                        <li><a href="question-answer.html">Q and A</a></li>
-                                        <li><a href="policies.html">Policies</a></li>
-                                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                                        <li><a href="404.html">404-Not Found</a></li>
+                                        <li class="heading">@Html.ActionLink(Model.PharmacyCategories[i].PharmacyCategoryName, "Details", "PharmacySubCategories", new { id = Model.PharmacyCategories[i].PharmacyCategoryId }, null)</li>
+                                        @foreach (var subcat in Model.PharmacyCategories[i].PharmacySubCategories)
+                                        {
+                                            <li>@Html.ActionLink(@subcat.PharmacySubCatName, "Details", "PharmacyProducts", new { id = subcat.PharmacySubCatId }, null)</li>
+                                        }
+                                        <li class="hr"></li>
                                     </ul>
-                                </li>*@
+                                </li>
+                            }
                         </ul>
-                    </li>                    
+                    </li>
                     <li>
                         @Html.ActionLink("About", "About", "Home")
                     </li>
@@ -238,51 +188,4 @@
         </div>
     </nav>
 </header>
-@*<div class="navbar menu--navbar">
-        <div class="container">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Health Store<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        @foreach (var category in Model)
-                        {
-                            <li>@Html.ActionLink(category.CategoryName, "Details", "Categories", new { id = category.CategoryId }, null)</li>
-                            <ul>
-                                @foreach (var subcat in category.SubCategories)
-                                {
-                                    <li><a href="#">@subcat.SubCatName</a></li>
-                                    <ul>
-                                        @foreach (var subclass in subcat.SubClassifications)
-                                        {
-                                            <li><a href="#">@subclass.SubClassificationName</a></li>
-                                        }
-                                    </ul>
-                                }
-                            </ul>
-                        }
-                    </ul>
-                </li>
-            </ul>
-
-            <div class="navbar-header">
-                <img src="~/Images/starmeds.png" width="50" height="50" alt="StarMeds">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
-                @Html.ActionLink("StarMeds", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-
-            </div>
-
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>*@
 <script src="~/Scripts/jquery-3.3.1.js"></script>
