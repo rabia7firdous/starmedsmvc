@@ -8,67 +8,80 @@
 
 <div>
     <h4>Product</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Product_Name)
-        </dt>
+    <hr class="dotted-line">
 
-        <dd>
-            @Html.DisplayFor(model => model.Product_Name)
-        </dd>
+    <div class="product-details-wrapper">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Product_Price)
-        </dt>
+        <div class="product-details-image">
 
-        <dd>
-            @Html.DisplayFor(model => model.Product_Price)
-        </dd>
+            @if (Model.Product_Image != null)
+            {
+                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Product_Image))">
+            }
+            else
+            {
+                <img class="img-responsive" src="~/Images/no-image-found.png" alt="product-image">
+            }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Product_Image)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Product_Image)
-        </dd>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Product_Details)
-        </dt>
+        <div class="product-details-description">
 
-        <dd>
-            @Html.DisplayFor(model => model.Product_Details)
-        </dd>
+            <h5>    @Html.DisplayFor(model => model.Product_Name)</h5>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ExpiryDate)
-        </dt>
+            <div class="two-column-box">
 
-        <dd>
-            @Html.DisplayFor(model => model.ExpiryDate)
-        </dd>
+                <p class="price-tag">@Html.DisplayNameFor(model => model.Product_Price)</p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </dt>
+                <p class="price-value">@Html.DisplayFor(model => model.Product_Price)</p>
 
-        <dd>
-            @Html.DisplayFor(model => model.Quantity)
-        </dd>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SubClassification.SubClassificationName)
-        </dt>
+ 
 
-        <dd>
-            @Html.DisplayFor(model => model.SubClassification.SubClassificationName)
-        </dd>
+            <div class="two-column-box">
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Product_Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                <p class="product-tag exp-date-tag">@Html.DisplayNameFor(model => model.ExpiryDate)</p>
+
+                <p class="product-details exp-date">@Html.DisplayFor(model => model.ExpiryDate)</p>
+
+            </div>
+
+            <div class="two-column-box">
+
+                <p class="product-tag">@Html.DisplayNameFor(model => model.Quantity)</p>
+
+                <p class="product-details qty-value">@Html.DisplayFor(model => model.Quantity)</p>
+
+            </div>
+
+
+            <div class="two-column-box">
+
+                <p class="product-tag">@Html.DisplayNameFor(model => model.SubClassification.SubClassificationName)</p>
+
+                <p class="product-details">@Html.DisplayFor(model => model.SubClassification.SubClassificationName)</p>
+
+            </div>
+
+
+            <div class="two-column-box">
+
+                <p class="product-tag">@Html.DisplayNameFor(model => model.Product_Details)</p>
+
+                <p class="product-details desc-details">@Html.DisplayFor(model => model.Product_Details)</p>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+    </div>
+    <p class="edit-back-list">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Product_Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
