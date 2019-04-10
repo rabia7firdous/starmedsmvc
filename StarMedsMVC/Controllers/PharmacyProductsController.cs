@@ -50,10 +50,19 @@ namespace StarMedsMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductId,ProductName,ProductPrice,ProductImage,ProductDetails,PharmacySubCatId,ExpiryDate,Quantity,ProductType,Manufacturer")] PharmacyProduct pharmacyProduct)
+        public ActionResult Create([Bind(Include = "ProductId,ProductName,ProductPrice,ProductDetails,PharmacySubCatId,ExpiryDate,Quantity,ProductType,Manufacturer", Exclude = "ProductImage")] PharmacyProduct pharmacyProduct, HttpPostedFileBase ProductImage)
         {
             if (ModelState.IsValid)
             {
+                if (ProductImage != null)
+                {
+                    if (ProductImage.ContentLength > 0)
+                    {
+                        byte[] imgBinaryData = new byte[ProductImage.ContentLength];
+                        int readresult = ProductImage.InputStream.Read(imgBinaryData, 0, ProductImage.ContentLength);
+                        pharmacyProduct.ProductImage = imgBinaryData;
+                    }
+                }
                 db.PharmacyProducts.Add(pharmacyProduct);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -84,10 +93,19 @@ namespace StarMedsMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,ProductName,ProductPrice,ProductImage,ProductDetails,PharmacySubCatId,ExpiryDate,Quantity,ProductType,Manufacturer")] PharmacyProduct pharmacyProduct)
+        public ActionResult Edit([Bind(Include = "ProductId,ProductName,ProductPrice,ProductDetails,PharmacySubCatId,ExpiryDate,Quantity,ProductType,Manufacturer", Exclude = "ProductImage")] PharmacyProduct pharmacyProduct, HttpPostedFileBase ProductImage)
         {
             if (ModelState.IsValid)
             {
+                if (ProductImage != null)
+                {
+                    if (ProductImage.ContentLength > 0)
+                    {
+                        byte[] imgBinaryData = new byte[ProductImage.ContentLength];
+                        int readresult = ProductImage.InputStream.Read(imgBinaryData, 0, ProductImage.ContentLength);
+                        pharmacyProduct.ProductImage = imgBinaryData;
+                    }
+                }
                 db.Entry(pharmacyProduct).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

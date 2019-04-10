@@ -46,10 +46,19 @@ namespace StarMedsMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PharmacySubCatId,PharmacySubCatName,PharmacyCategoryId,PharmacySubCatImage")] PharmacySubCategory pharmacySubCategory)
+        public ActionResult Create([Bind(Include = "PharmacySubCatId,PharmacySubCatName,PharmacyCategoryId", Exclude = "PharmacySubCatImage")] PharmacySubCategory pharmacySubCategory, HttpPostedFileBase PharmacySubCatImage)
         {
             if (ModelState.IsValid)
             {
+                if (PharmacySubCatImage != null)
+                {
+                    if (PharmacySubCatImage.ContentLength > 0)
+                    {
+                        byte[] imgBinaryData = new byte[PharmacySubCatImage.ContentLength];
+                        int readresult = PharmacySubCatImage.InputStream.Read(imgBinaryData, 0, PharmacySubCatImage.ContentLength);
+                        pharmacySubCategory.PharmacySubCatImage = imgBinaryData;
+                    }
+                }
                 db.PharmacySubCategories.Add(pharmacySubCategory);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -80,10 +89,19 @@ namespace StarMedsMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PharmacySubCatId,PharmacySubCatName,PharmacyCategoryId,PharmacySubCatImage")] PharmacySubCategory pharmacySubCategory)
+        public ActionResult Edit([Bind(Include = "PharmacySubCatId,PharmacySubCatName,PharmacyCategoryId", Exclude = "PharmacySubCatImage")] PharmacySubCategory pharmacySubCategory, HttpPostedFileBase PharmacySubCatImage)
         {
             if (ModelState.IsValid)
             {
+                if (PharmacySubCatImage != null)
+                {
+                    if (PharmacySubCatImage.ContentLength > 0)
+                    {
+                        byte[] imgBinaryData = new byte[PharmacySubCatImage.ContentLength];
+                        int readresult = PharmacySubCatImage.InputStream.Read(imgBinaryData, 0, PharmacySubCatImage.ContentLength);
+                        pharmacySubCategory.PharmacySubCatImage = imgBinaryData;
+                    }
+                }
                 db.Entry(pharmacySubCategory).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
