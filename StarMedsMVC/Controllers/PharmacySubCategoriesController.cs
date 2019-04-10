@@ -25,16 +25,13 @@ namespace StarMedsMVC.Controllers
         // GET: PharmacySubCategories/Details/5
         public ActionResult Details(int? id)
         {
+            List<PharmacySubCategory> subcategories = new List<PharmacySubCategory>();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PharmacySubCategory pharmacySubCategory = db.PharmacySubCategories.Find(id);
-            if (pharmacySubCategory == null)
-            {
-                return HttpNotFound();
-            }
-            return View(pharmacySubCategory);
+            subcategories = db.PharmacySubCategories.Where(i => i.PharmacyCategoryId == id).ToList();
+            return View(subcategories);
         }
 
         // GET: PharmacySubCategories/Create

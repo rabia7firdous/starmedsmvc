@@ -1,0 +1,84 @@
+﻿@model StarMedsMVC.PharmacyProduct
+
+@{
+    ViewBag.Title = "ProductDetails";
+}
+
+<h2>Pharmacy Product Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr class="dotted-line">
+
+    <div class="product-details-wrapper">
+
+        <div class="product-details-image">
+
+            @if (Model.ProductImage != null)
+            {
+                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.ProductImage))">
+            }
+            else
+            {
+                <img class="img-responsive" src="~/Images/no-image-found.png" alt="product-image">
+            }
+
+
+        </div>
+
+        <div class="product-details-description">
+
+            <h5>    @Html.DisplayFor(model => model.ProductName)</h5>
+
+            <div class="two-column-box">
+
+                <p class="price-tag">@Html.DisplayNameFor(model => model.ProductPrice)</p>
+
+                <p class="price-value">@Html.DisplayFor(model => model.ProductPrice)</p>
+
+            </div>
+
+ 
+
+            <div class="two-column-box">
+
+                <p class="product-tag exp-date-tag">@Html.DisplayNameFor(model => model.ExpiryDate)</p>
+
+                <p class="product-details exp-date">@Html.DisplayFor(model => model.ExpiryDate)</p>
+
+            </div>
+
+            <div class="two-column-box">
+
+                <p class="product-tag">@Html.DisplayNameFor(model => model.Manufacturer)</p>
+
+                <p class="product-details qty-value">@Html.DisplayFor(model => model.Manufacturer)</p>
+
+            </div>
+
+
+            <div class="two-column-box">
+
+                <p class="product-tag">@Html.DisplayNameFor(model => model.PharmacySubCategory.PharmacySubCatName)</p>
+
+                <p class="product-details">@Html.DisplayFor(model => model.PharmacySubCategory.PharmacySubCatName)</p>
+
+            </div>
+
+
+            <div class="two-column-box">
+
+                <p class="product-tag">@Html.DisplayNameFor(model => model.ProductDetails)</p>
+
+                <p class="product-details desc-details">@Html.DisplayFor(model => model.ProductDetails)</p>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+    </div>
+

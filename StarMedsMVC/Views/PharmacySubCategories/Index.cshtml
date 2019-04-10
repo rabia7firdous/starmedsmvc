@@ -4,12 +4,12 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
-<p>
+<p class="btn-tag add-btn">
+    <i class="fa fa-plus"></i>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-striped table-hover table-bordered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.PharmacySubCatName)
@@ -23,23 +23,32 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PharmacySubCatName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PharmacySubCatImage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PharmacyCategory.PharmacyCategoryName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PharmacySubCatId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PharmacySubCatId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PharmacySubCatId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PharmacySubCatName)
+            </td>
+            <td>
+                @if (item.PharmacySubCatImage != null)
+                {
+                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(item.PharmacySubCatImage))">
+                }
+                else
+                {
+                    <h4>No Image</h4>
+                }
+
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PharmacyCategory.PharmacyCategoryName)
+            </td>
+            <td class="edit-row">
+                <i class="fa fa-pencil" aria-hidden="true"></i>@Html.ActionLink("Edit", "Edit", new { id = item.PharmacySubCatId }, new { @class = "edit-link fa-icon" }) |
+                <i class="fa fa-trash" aria-hidden="true"></i> @Html.ActionLink("Delete", "Delete", new { id = item.PharmacySubCatId }, new { @class = "delete-link fa-icon" })
+            </td>
+        </tr>
+    }
 
 </table>

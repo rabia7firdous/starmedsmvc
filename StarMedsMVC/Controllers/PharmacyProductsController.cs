@@ -25,16 +25,17 @@ namespace StarMedsMVC.Controllers
         // GET: PharmacyProducts/Details/5
         public ActionResult Details(int? id)
         {
+            List<PharmacyProduct> products = new List<PharmacyProduct>();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PharmacyProduct pharmacyProduct = db.PharmacyProducts.Find(id);
-            if (pharmacyProduct == null)
+            products = db.PharmacyProducts.Where(i => i.PharmacySubCatId == id).ToList();
+            if (products == null)
             {
                 return HttpNotFound();
             }
-            return View(pharmacyProduct);
+            return View(products);
         }
 
         // GET: PharmacyProducts/Create
@@ -120,6 +121,24 @@ namespace StarMedsMVC.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        // GET: PharmacyProducts/ProductDetails/5
+        public ActionResult ProductDetails(int? id)
+        {
+            PharmacyProduct product = new PharmacyProduct();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            product = db.PharmacyProducts.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View(product);
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {

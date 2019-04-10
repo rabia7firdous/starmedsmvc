@@ -140,7 +140,7 @@ namespace StarMedsMVC.Controllers
         }
 
 
-        // GET: HpProducts/Details/5
+        // GET: HpProducts/ProductDetails/5
         public ActionResult ProductDetails(int? id)
         {
            Product product = new Product();

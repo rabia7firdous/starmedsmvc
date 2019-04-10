@@ -6,10 +6,12 @@
 
 <h2>Index</h2>
 
-<p>
+<p class="btn-tag add-btn">
+    <i class="fa fa-plus"></i>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+
+<table class="table table-striped table-hover table-bordered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Product_Name)
@@ -32,38 +34,39 @@
         <th>
             @Html.DisplayNameFor(model => model.SubClassification.SubClassificationName)
         </th>
-        <th></th>
+        <th>
+        </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Product_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Product_Price)
-        </td>
-        <td>
-            <img style="height:100px;width:100px" src="data:image/jpeg;base64,@(Convert.ToBase64String(item.Product_Image))">  
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Product_Details)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpiryDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SubClassification.SubClassificationName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Product_Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Product_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Product_Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Price)
+            </td>
+            <td>
+                <img style="height:100px;width:100px" src="data:image/jpeg;base64,@(Convert.ToBase64String(item.Product_Image))">
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Details)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpiryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubClassification.SubClassificationName)
+            </td>
+            <td class="edit-row">
+               <i class="fa fa-pencil" aria-hidden="true"></i>@Html.ActionLink("Edit", "Edit", new { id = item.Product_Id }) |
+               <i class="fa fa-trash" aria-hidden="true"></i> @Html.ActionLink("Delete", "Delete", new { id = item.Product_Id })
+            </td>
+        </tr>
+    }
 
 </table>

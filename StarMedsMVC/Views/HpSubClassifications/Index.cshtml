@@ -47,8 +47,7 @@
                     @Html.DisplayFor(modelItem => item.SubCategory.SubCatName)
                 </td>
                 <td class="edit-row">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>@Html.ActionLink("Edit", "Edit", new { id = item.SubClassificationId }, new { @class = "edit-link fa-icon" }) |
-                    <i class="fa fa-clone" aria-hidden="true"></i> @Html.ActionLink("Details", "Details", new { id = item.SubClassificationId }, new { @class = "details-link fa-icon" }) |
+                    <i class="fa fa-pencil" aria-hidden="true"></i>@Html.ActionLink("Edit", "Edit", new { id = item.SubClassificationId }, new { @class = "edit-link fa-icon" }) |                    
                     <i class="fa fa-trash" aria-hidden="true"></i> @Html.ActionLink("Delete", "Delete", new { id = item.SubClassificationId }, new { @class = "delete-link fa-icon" })
                 </td>
             </tr>

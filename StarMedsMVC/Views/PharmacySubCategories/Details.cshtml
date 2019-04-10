@@ -1,42 +1,38 @@
-﻿@model StarMedsMVC.PharmacySubCategory
+﻿@model List<PharmacySubCategory>
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Pharmacy SubCategories";
 }
 
-<h2>Details</h2>
+<h2>PharmacySubCategory</h2>
 
-<div>
-    <h4>PharmacySubCategory</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.PharmacySubCatName)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.PharmacySubCatName)
-        </dd>
+<div>   
+    <hr class="dotted-line">
+    <div class="categories-wrapper">
+        @foreach (var subCat in Model)
+        {
+            <div class="categories">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PharmacySubCatImage)
-        </dt>
+                <div class="product-image">
+                    <a href='@Url.Action("Details", "PharmacyProducts", new { id = subCat.PharmacySubCatId })'>
+                        @if (subCat.PharmacySubCatImage != null)
+                        {
+                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(subCat.PharmacySubCatImage))">
+                        }
+                        else
+                        {
+                            <img class="img-responsive" src="~/Images/no-image-found.png" alt="product-image">
+                        }
+                    </a>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.PharmacySubCatImage)
-        </dd>
+                <div class="product-info">
+                    <h3>@subCat.PharmacySubCatName</h3>
+                </div>
+            </div>
+        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PharmacyCategory.PharmacyCategoryName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PharmacyCategory.PharmacyCategoryName)
-        </dd>
-
-    </dl>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PharmacySubCatId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

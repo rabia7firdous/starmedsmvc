@@ -4,12 +4,16 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<p class="btn-tag add-btn">
+    <i class="fa fa-plus"></i>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-striped table-hover table-bordered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.ProductName)
@@ -41,41 +45,50 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductImage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductDetails)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpiryDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Manufacturer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PharmacySubCategory.PharmacySubCatName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductPrice)
+            </td>
+            <td>
+                @if (item.ProductImage != null)
+                {
+                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(item.ProductImage))">
+                }
+                else
+                {
+                    <h4>No Image</h4>
+                }
+
+
+            </td>           
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductDetails)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpiryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Manufacturer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PharmacySubCategory.PharmacySubCatName)
+            </td>
+            <td class="edit-row">
+                <i class="fa fa-pencil" aria-hidden="true"></i>@Html.ActionLink("Edit", "Edit", new { id = item.ProductId }, new { @class = "edit-link fa-icon" }) |
+                <i class="fa fa-trash" aria-hidden="true"></i> @Html.ActionLink("Delete", "Delete", new { id = item.ProductId }, new { @class = "delete-link fa-icon" })
+            </td>
+        </tr>
+    }
 
 </table>

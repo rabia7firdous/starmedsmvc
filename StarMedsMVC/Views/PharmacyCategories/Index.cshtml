@@ -4,12 +4,13 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Pharmacy Categories</h2>
 
-<p>
+<p class="btn-tag add-btn">
+    <i class="fa fa-plus"></i>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-striped table-hover table-bordered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.PharmacyCategoryName)
@@ -17,17 +18,17 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PharmacyCategoryName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PharmacyCategoryId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PharmacyCategoryId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PharmacyCategoryId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PharmacyCategoryName)
+            </td>
+            <td class="edit-row">
+                <i class="fa fa-pencil" aria-hidden="true"></i>@Html.ActionLink("Edit", "Edit", new { id = item.PharmacyCategoryId }, new { @class = "edit-link fa-icon" }) |
+                <i class="fa fa-trash" aria-hidden="true"></i> @Html.ActionLink("Delete", "Delete", new { id = item.PharmacyCategoryId }, new { @class = "delete-link fa-icon" })
+            </td>
+        </tr>
+    }
 
 </table>
