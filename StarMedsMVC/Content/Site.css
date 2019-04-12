@@ -473,7 +473,6 @@ nav.navbar.mart-nav ul.nav.navbar-nav .categories-drpdwn li a {
 
     .header-2 .mega-sub-menu .mega-dropdown {
         position: absolute;
-        display: inherit;
     }
 
     .header-2 .mega-sub-menu:hover .mega-dropdown {
@@ -847,7 +846,7 @@ table.table.table-bordered td p {
 .table-bordered td img {
     display: block;
     margin: 0 auto;
-    max-width: 50px;
+    max-width:100px;
 }
 
 table.table.table-bordered td {
@@ -1019,7 +1018,7 @@ ul.nav.nav-tabs.step-anchor {
 
 .sw-theme-default .step-content {
     background: rgba(241, 241, 241, 0.23);
-        padding: 15px;
+    padding: 15px;
 }
 
 .productlist-card.productlist-card-title {
@@ -1175,8 +1174,8 @@ button.btn.btn-secondary.sw-btn-prev {
     -moz-box-shadow: 2px 2px 2px rgba(0,0,0,.1);
     box-shadow: 2px 2px 2px rgba(0,0,0,.1);
     -webkit-border-radius: 0px;
-    -khtml-border-radius:0px;
-    -moz-border-radius:0px;
+    -khtml-border-radius: 0px;
+    -moz-border-radius: 0px;
     border-radius: 0px;
     background-color: #fff;
     margin: 0 0 15px 0;
@@ -1195,23 +1194,28 @@ button.btn.btn-secondary.sw-btn-prev {
 .padding-r-0 {
     padding-right: 0px;
 }
-.tab-pane.step-content .form-group label{
+
+.tab-pane.step-content .form-group label {
     color: #343434;
-    font-weight:400;
+    font-weight: 400;
 }
+
 .form-group {
     margin-bottom: 20px;
 }
+
 .tab-pane.step-content .form-group label {
     color: #343434;
     font-weight: 400;
     font-size: 16px;
     margin-bottom: 10px;
 }
+
 div#step-2 {
     padding: 20px;
 }
-.form-group input {
+
+.tab-pane.step-content .form-group input {
     height: 48px;
     width: 100%;
     display: block;
@@ -1224,7 +1228,8 @@ div#step-2 {
     border: 1px solid #eaeaea;
     max-width: 500px;
 }
-.form-group textarea  {
+
+.form-group textarea {
     width: 100%;
     display: block;
     -webkit-box-shadow: none;
@@ -1235,18 +1240,22 @@ div#step-2 {
     border: 1px solid #eaeaea;
     max-width: 500px;
 }
+
 .form-group {
     margin-bottom: 20px;
 }
+
 .tab-pane.step-content .form-group label {
     color: rgb(52, 52, 52);
     font-weight: 400;
     font-size: 16px;
     margin-bottom: 10px;
 }
+
 .contianer-fluid.productlist-card.productlist-card-title.order-title {
     padding-left: 10px;
 }
+
 .contianer-fluid.productlist-card.productlist-card-title.order-title {
     padding-left: 10px;
 }
@@ -1259,13 +1268,16 @@ i.fa.fa-dot-circle-o.color-dgreen.padding-r.size-16 {
 .order-title p.margin-none.padding-r-15 {
     font-weight: 600;
 }
+
 .order-title i.fa.fa-dot-circle-o.color-dgreen.padding-r.size-16 {
     color: #5cb85c;
     margin-right: 10px;
 }
+
 .color-blue {
     color: #2e7cc0 !important;
 }
+
 .productlist-card.total-value-box {
     min-height: inherit;
     display: flex;
@@ -1273,15 +1285,98 @@ i.fa.fa-dot-circle-o.color-dgreen.padding-r.size-16 {
     flex-wrap: wrap;
     justify-content: flex-end;
 }
-.productlist-card.total-value-box span.mrp-total {
-    color: #5cb85c;
-    font-weight: 600;
-    padding-left: 20px;
-}
+
+    .productlist-card.total-value-box span.mrp-total {
+        color: #5cb85c;
+        font-weight: 600;
+        padding-left: 20px;
+        font-size: 17px;
+    }
+
 hr.margin-t-15.margin-b {
     margin-top: 15px;
     border-top: 1px solid #ccc;
 }
+
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+    position: absolute;
+    left: -9999px;
+}
+[type="radio"]:checked + label,
+[type="radio"]:not(:checked) + label
+{
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 26px;
+    display: inline-block;
+    color: #666;
+        margin-bottom: 0px;
+}
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before {
+content: '';
+    position: absolute;
+    left: 0;
+    top: 4px;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #5cb85c;
+    border-radius: 100%;
+    background: #fff;
+}
+[type="radio"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after {
+content: '';
+    width: 12px;
+    height: 12px;
+    background: #5cb85c;
+    position: absolute;
+    top: 7px;
+    left: 3px;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+[type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+[type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.radio-item-panel {
+position: relative;
+    padding: 15px 0 15px 20px;
+    background-color: #fff;
+    margin: 15px 0 15px 0;
+    list-style: none;
+    -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,.1);
+    -moz-box-shadow: 2px 2px 2px rgba(0,0,0,.1);
+    box-shadow: 2px 2px 2px rgba(0,0,0,.1);
+
+}
+.radio-item-panel p {
+    margin: 0px;
+}
+.radio-item-panel label strong {
+    display: block;
+    color: #5cb85c;
+}
+h4.subtitle {
+    color: #2e7cc0;
+    font-weight: 400;
+    margin-bottom: 30px;
+}
+table.table.table-bordered td.edit-row {
+    width: 13%;
+}
+
 /* Override the default bootstrap behavior where horizontal description lists will truncate terms that are too long to fit in the left column */
 .dl-horizontal dt {
     white-space: normal;
