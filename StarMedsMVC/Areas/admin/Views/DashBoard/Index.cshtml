@@ -3,6 +3,177 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
 }
+<div id="wrapper">
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://cijulenlinea.ucr.ac.cr/dev-users/">
+                <img src="~/Areas/admin/images/logo.png" alt="Star Meds">
+            </a>
+        </div>
+        <!-- Top Menu Items -->
+        <ul class=" nav navbar-right top-nav">
+            <li>
+                <a href="#" data-placement="bottom" data-toggle="tooltip" href="#"
+                   data-original-title="Stats">
+                    <i class="fa fa-bar-chart-o"></i>
+                </a>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Welcome
+                    @if (Session["AdminName"] != null)
+                    {
+                        @Session["AdminName"]
+                    }
+                    <b class="fa fa-angle-down"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#"><i class="fa fa-fw fa-user"></i> Edit Profile</a></li>
+                    <li><a href="#"><i class="fa fa-fw fa-cog"></i> Change Password</a></li>
+                    <li class="divider"></li>
 
-<h2>Index</h2>
+                    <li><a href='@Url.Action("Logout", "LogOut")'><i class="fa fa-fw fa-power-off"></i>Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+                <li>
+                    <a href="#" data-toggle="collapse" data-target="#submenu-1">
+                        <i class="fa fa-fw fa-star"></i>Health Product Categories<i class="fa fa-fw fa-angle-down pull-right"></i>
+                    </a>
+                    <ul id="submenu-1" class="collapse">
+                        <li><a href="#" id="addHpCategories"><i class="fa fa-angle-double-right"></i>Add Categories</a></li>
+                        <li><a href="#" id="editHpCategories"><i class="fa fa-angle-double-right"></i>Edit Categories</a></li>
+                        <li><a href="#" id="viewHpCategories"><i class="fa fa-angle-double-right"></i>View Categories</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" data-toggle="collapse" data-target="#submenu-2">
+                        <i class="fa fa-fw fa-star"></i>Health Product SubCategories<i class="fa fa-fw fa-angle-down pull-right"></i>
+                    </a>
+                    <ul id="submenu-2" class="collapse">
+                        <li><a href="#" id="addHpSubCategories"><i class="fa fa-angle-double-right"></i>Add SubCategories</a></li>
+                        <li><a href="#" id="editHpSubCategories"><i class="fa fa-angle-double-right"></i>Edit SubCategories</a></li>
+                        <li><a href="#" id="viewHpSubCategories"><i class="fa fa-angle-double-right"></i>View SubCategories</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" data-toggle="collapse" data-target="#submenu-3">
+                        <i class="fa fa-fw fa-star"></i>Health Product SubClassifications<i class="fa fa-fw fa-angle-down pull-right"></i>
+                    </a>
+                    <ul id="submenu-3" class="collapse">
+                        <li><a href="#" id="addHpSubClassifications"><i class="fa fa-angle-double-right"></i>Add SubClassifications</a></li>
+                        <li><a href="#" id="editHpSubClassifications"><i class="fa fa-angle-double-right"></i>Edit SubClassifications</a></li>
+                        <li><a href="#" id="viewHpSubClassifications"><i class="fa fa-angle-double-right"></i>View SubClassifications</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" data-toggle="collapse" data-target="#submenu-4">
+                        <i class="fa fa-fw fa-star"></i>Health Product Products<i class="fa fa-fw fa-angle-down pull-right"></i>
+                    </a>
+                    <ul id="submenu-4" class="collapse">
+                        <li><a href="#" id="addHpProducts"><i class="fa fa-angle-double-right"></i>Add Products</a></li>
+                        <li><a href="#" id="editHpProducts"><i class="fa fa-angle-double-right"></i>Edit Products</a></li>
+                        <li><a href="#" id="viewHpProducts"><i class="fa fa-angle-double-right"></i>View Products</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" data-toggle="collapse" data-target="#submenu-5">
+                        <i class="fa fa-fw fa-star"></i>Pharmacy Product Categories<i class="fa fa-fw fa-angle-down pull-right"></i>
+                    </a>
+                    <ul id="submenu-5" class="collapse">
+                        <li><a href="#" id="addPharmacyCategories"><i class="fa fa-angle-double-right"></i>Add Categories</a></li>
+                        <li><a href="#" id="editPharmacyCategories"><i class="fa fa-angle-double-right"></i>Edit Categories</a></li>
+                        <li><a href="#" id="viewPharmacyCategories"><i class="fa fa-angle-double-right"></i>View Categories</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" data-toggle="collapse" data-target="#submenu-6">
+                        <i class="fa fa-fw fa-star"></i>Pharmacy Product SubCategories<i class="fa fa-fw fa-angle-down pull-right"></i>
+                    </a>
+                    <ul id="submenu-6" class="collapse">
+                        <li><a href="#" id="addPharmacySubCategories"><i class="fa fa-angle-double-right"></i>Add SubCategories</a></li>
+                        <li><a href="#" id="editPharmacySubCategories"><i class="fa fa-angle-double-right"></i>Edit SubCategories</a></li>
+                        <li><a href="#" id="viewPharmacySubCategories"><i class="fa fa-angle-double-right"></i>View SubCategories</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" data-toggle="collapse" data-target="#submenu-7">
+                        <i class="fa fa-fw fa-star"></i>Pharmacy Products<i class="fa fa-fw fa-angle-down pull-right"></i>
+                    </a>
+                    <ul id="submenu-7" class="collapse">
+                        <li><a href="#" id="addPharmacyProducts"><i class="fa fa-angle-double-right"></i>Add Products</a></li>
+                        <li><a href="#" id="editPharmacyProducts"><i class="fa fa-angle-double-right"></i>Edit Products</a></li>
+                        <li><a href="#" id="viewPharmacyProducts"><i class="fa fa-angle-double-right"></i>View Products</a></li>
+                    </ul>
+                </li>
+                @*<li>
+                            <a href="#" data-toggle="collapse" data-target="#submenu-2"><i
+                                    class="fa fa-fw fa-star"></i> MENU 2 <i
+                                    class="fa fa-fw fa-angle-down pull-right"></i></a>
+                            <ul id="submenu-2" class="collapse">
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 2.1</a></li>
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 2.2</a></li>
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 2.3</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="investigaciones/favoritas"><i class="fa fa-fw fa-star"></i> MENU 3</a>
+                        </li>
+                        <li>
+                            <a href="sugerencias"><i class="fa fa-fw fa-star"></i> MENU 4</a>
+                        </li>
+                        <li>
+                            <a href="faq"><i class="fa fa-fw fa-star"></i> MENU 5</a>
+                        </li>
+                    <li>
+                        <a href="#" data-toggle="collapse" data-target="#submenu-2">
+                            <i class="fa fa-fw fa-star"></i><i class="fa fa-fw fa-angle-down pull-right"></i>
+                        </a>
+                        <ul id="submenu-2" class="collapse">
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="investigaciones/favoritas"><i class="fa fa-fw fa-star"></i></a>
+                    </li>
+                    <li>
+                        <a href="sugerencias"><i class="fa fa-fw fa-star"></i></a>
+                    </li>
+                    <li>
+                        <a href="faq"><i class="fa fa-fw fa-star"></i></a>
+                    </li>*@
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <!-- Page Heading -->
+            <div class="row" id="main">
+                <div class="col-sm-12 col-md-12 well" id="content">
+                    <h1>Welcome Admin!</h1>
+                </div>
+            </div>
+            <!-- /.row -->
+
+            <div id="renderView"></div>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+</div><!-- /#wrapper -->
 

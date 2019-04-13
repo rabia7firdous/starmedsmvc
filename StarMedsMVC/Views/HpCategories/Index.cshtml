@@ -6,9 +6,6 @@
 
 <h2>Health Product Categories</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table table-striped table-hover table-bordered">
     <tr>
         <th>
@@ -25,7 +22,7 @@
             </td>
             <td class="edit-row">
                 <i class="fa fa-pencil" aria-hidden="true"></i>@Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }, new { @class = "edit-link fa-icon" }) |
-                <i class="fa fa-clone" aria-hidden="true"></i>@Html.ActionLink("Details", "Details", new { id = item.CategoryId }, new { @class = "details-link fa-icon" }) |
+                @*<i class="fa fa-clone" aria-hidden="true"></i>@Html.ActionLink("Details", "Details", new { id = item.CategoryId }, new { @class = "details-link fa-icon" }) |*@
                 <i class="fa fa-trash" aria-hidden="true"></i>@Html.ActionLink("Delete", "Delete", new { id = item.CategoryId }, new { @class = "delete-link fa-icon" })
             </td>
         </tr>

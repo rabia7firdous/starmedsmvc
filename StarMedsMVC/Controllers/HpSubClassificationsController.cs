@@ -19,7 +19,7 @@ namespace StarMedsMVC.Controllers
         public ActionResult Index()
         {
             var subClassifications = db.SubClassifications.Include(s => s.SubCategory);
-            return View(subClassifications.ToList());
+            return PartialView(subClassifications.ToList());
         }
 
         // GET: HpSubClassifications/Details/5
@@ -42,7 +42,7 @@ namespace StarMedsMVC.Controllers
         public ActionResult Create()
         {
             ViewBag.SubCat_Id = new SelectList(db.SubCategories, "SubCat_Id", "SubCatName");
-            return View();
+            return PartialView();
         }
 
         // POST: HpSubClassifications/Create
@@ -69,7 +69,7 @@ namespace StarMedsMVC.Controllers
             }
 
             ViewBag.SubCat_Id = new SelectList(db.SubCategories, "SubCat_Id", "SubCatName", subClassification.SubCat_Id);
-            return View(subClassification);
+            return PartialView(subClassification);
         }
 
         // GET: HpSubClassifications/Edit/5
@@ -85,7 +85,7 @@ namespace StarMedsMVC.Controllers
                 return HttpNotFound();
             }
             ViewBag.SubCat_Id = new SelectList(db.SubCategories, "SubCat_Id", "SubCatName", subClassification.SubCat_Id);
-            return View(subClassification);
+            return PartialView(subClassification);
         }
 
         // POST: HpSubClassifications/Edit/5
@@ -111,7 +111,7 @@ namespace StarMedsMVC.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.SubCat_Id = new SelectList(db.SubCategories, "SubCat_Id", "SubCatName", subClassification.SubCat_Id);
-            return View(subClassification);
+            return PartialView(subClassification);
         }
 
         // GET: HpSubClassifications/Delete/5

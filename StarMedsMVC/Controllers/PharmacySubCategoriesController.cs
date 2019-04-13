@@ -19,7 +19,7 @@ namespace StarMedsMVC.Controllers
         public ActionResult Index()
         {
             var pharmacySubCategories = db.PharmacySubCategories.Include(p => p.PharmacyCategory);
-            return View(pharmacySubCategories.ToList());
+            return PartialView(pharmacySubCategories.ToList());
         }
 
         // GET: PharmacySubCategories/Details/5
@@ -38,7 +38,7 @@ namespace StarMedsMVC.Controllers
         public ActionResult Create()
         {
             ViewBag.PharmacyCategoryId = new SelectList(db.PharmacyCategories, "PharmacyCategoryId", "PharmacyCategoryName");
-            return View();
+            return PartialView();
         }
 
         // POST: PharmacySubCategories/Create
@@ -65,7 +65,7 @@ namespace StarMedsMVC.Controllers
             }
 
             ViewBag.PharmacyCategoryId = new SelectList(db.PharmacyCategories, "PharmacyCategoryId", "PharmacyCategoryName", pharmacySubCategory.PharmacyCategoryId);
-            return View(pharmacySubCategory);
+            return PartialView(pharmacySubCategory);
         }
 
         // GET: PharmacySubCategories/Edit/5
@@ -81,7 +81,7 @@ namespace StarMedsMVC.Controllers
                 return HttpNotFound();
             }
             ViewBag.PharmacyCategoryId = new SelectList(db.PharmacyCategories, "PharmacyCategoryId", "PharmacyCategoryName", pharmacySubCategory.PharmacyCategoryId);
-            return View(pharmacySubCategory);
+            return PartialView(pharmacySubCategory);
         }
 
         // POST: PharmacySubCategories/Edit/5
@@ -107,7 +107,7 @@ namespace StarMedsMVC.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.PharmacyCategoryId = new SelectList(db.PharmacyCategories, "PharmacyCategoryId", "PharmacyCategoryName", pharmacySubCategory.PharmacyCategoryId);
-            return View(pharmacySubCategory);
+            return PartialView(pharmacySubCategory);
         }
 
         // GET: PharmacySubCategories/Delete/5

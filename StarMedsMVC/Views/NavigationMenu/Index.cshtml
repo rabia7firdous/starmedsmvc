@@ -34,7 +34,13 @@
         <img class="logo m-hide" src="~/Images/starmeds.png" alt="StarMeds">
     </a>    
     <nav class="navbar mart-nav margin-none header-bar" role="navigation">
-        <div class="cart-icon"><img src="~/Images/shopping-cart.svg"><span class="cart-number">(22)</span></div>
+        <div class="cart-icon"><img src="~/Images/shopping-cart.svg">
+        @if (@Session["count"] != null)
+        {<span class="cart-number">(@Session["count"])</span>}
+        else
+        {<span class="cart-number">(0)</span> }
+        </div>
+        
         <ul class="nav navbar-nav nav-search">
             <div class="form-group margin-none">
                 <div class="input-group productsearch">

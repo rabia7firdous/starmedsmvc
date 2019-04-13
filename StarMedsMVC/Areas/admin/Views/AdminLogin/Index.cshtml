@@ -3,7 +3,7 @@
     ViewBag.Title = "Login";
 }
 
-@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+@using (Html.BeginForm("Index", "AdminLogin", FormMethod.Post))
 {
     <fieldset>
         <h3>Sign In</h3>
@@ -29,13 +29,6 @@
         <div class="checkbox">
             <label><input type="checkbox"> Remember me</label>
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
-        <div class="btm-fixedbar color-grey border-t  padding-t-b-15 signinPopUp">
-            New to StarMeds? <span class="padding-l-5"><strong>@Html.ActionLink("Register Here", "Index", "RegisterUser")</strong></span>
-        </div>
-        <hr />
-        <div class="btm-fixedbar color-grey border-t  padding-t-b-15 signinPopUp">
-            Are you a Admin? <span class="padding-l-5"><strong>@Html.ActionLink("Login Here", "Index", "AdminLogin", new { area="admin"},null)</strong></span>
-        </div>
+        <button type="submit" class="btn btn-primary">Login</button>      
     </fieldset>
 } 

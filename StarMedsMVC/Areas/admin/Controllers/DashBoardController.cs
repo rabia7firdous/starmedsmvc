@@ -11,6 +11,10 @@ namespace StarMedsMVC.Areas.admin.Controllers
         // GET: admin/DashBoard
         public ActionResult Index()
         {
+            if (Session["AdminId"] == null)
+            {
+                return RedirectToAction("Login", "Login", new { area = "" });
+            }
             return View();
         }
     }

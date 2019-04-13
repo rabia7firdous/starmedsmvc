@@ -18,7 +18,7 @@ namespace StarMedsMVC.Controllers
         // GET: Categories
         public ActionResult Index()
         {
-            return View(db.Categories.ToList());
+            return PartialView(db.Categories.ToList());
         }
 
         // GET: Categories/Details/5
@@ -37,7 +37,7 @@ namespace StarMedsMVC.Controllers
         // GET: Categories/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: Categories/Create
@@ -51,10 +51,10 @@ namespace StarMedsMVC.Controllers
             {
                 db.Categories.Add(category);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return PartialView("Index", db.Categories.ToList());
             }
 
-            return View(category);
+            return PartialView(category);
         }
 
         // GET: Categories/Edit/5
@@ -69,7 +69,7 @@ namespace StarMedsMVC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return PartialView(category);
         }
 
         // POST: Categories/Edit/5
@@ -85,7 +85,7 @@ namespace StarMedsMVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(category);
+            return PartialView(category);
         }
 
         // GET: Categories/Delete/5

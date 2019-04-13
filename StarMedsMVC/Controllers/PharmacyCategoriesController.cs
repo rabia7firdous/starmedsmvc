@@ -18,7 +18,7 @@ namespace StarMedsMVC.Controllers
         // GET: PharmacyCategories
         public ActionResult Index()
         {
-            return View(db.PharmacyCategories.ToList());
+            return PartialView(db.PharmacyCategories.ToList());
         }
 
         // GET: PharmacyCategories/Details/5
@@ -39,7 +39,7 @@ namespace StarMedsMVC.Controllers
         // GET: PharmacyCategories/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: PharmacyCategories/Create
@@ -56,7 +56,7 @@ namespace StarMedsMVC.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(pharmacyCategory);
+            return PartialView(pharmacyCategory);
         }
 
         // GET: PharmacyCategories/Edit/5
@@ -71,7 +71,7 @@ namespace StarMedsMVC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(pharmacyCategory);
+            return PartialView(pharmacyCategory);
         }
 
         // POST: PharmacyCategories/Edit/5
@@ -87,7 +87,7 @@ namespace StarMedsMVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(pharmacyCategory);
+            return PartialView(pharmacyCategory);
         }
 
         // GET: PharmacyCategories/Delete/5
