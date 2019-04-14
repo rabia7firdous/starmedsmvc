@@ -17,8 +17,10 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome @HttpContext.Current.Session["CustomerName"].ToString()<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><i class="fa fa-user" aria-hidden="true"></i><a href="#"> My Account</a></li>
-                                <li><i class="fa fa-sign-out" aria-hidden="true"></i> @Html.ActionLink("Logout", "LogOut", "LogOut")</li>
+                                <li><i class="fa fa-user" aria-hidden="true"></i><a href="#"> My Orders</a></li>
+                                <li><i class="fa fa-user" aria-hidden="true"></i><a href="@Url.Action("Index", "Addresses")"> My Addresses</a></li>
+                                <li><i class="fa fa-user" aria-hidden="true"></i><a href="#"> Change Password</a></li>
+                                <li><i class="fa fa-sign-out" aria-hidden="true"></i> @Html.ActionLink("Logout", "LogOut", "LogOut", new { area = "" }, null)</li>
                             </ul>
                         </li>
                     </ul>
@@ -32,15 +34,18 @@
 
     <a href="/" title="StarMeds">
         <img class="logo m-hide" src="~/Images/starmeds.png" alt="StarMeds">
-    </a>    
+    </a>
     <nav class="navbar mart-nav margin-none header-bar" role="navigation">
-        <div class="cart-icon"><img src="~/Images/shopping-cart.svg">
-        @if (@Session["count"] != null)
-        {<span class="cart-number">(@Session["count"])</span>}
-        else
-        {<span class="cart-number">(0)</span> }
+        <div class="cart-icon">
+            <a href="@Url.Action("MyCart", "Cart")">
+                <img src="~/Images/shopping-cart.svg">
+            </a>
+            @if (@Session["count"] != null)
+            {<span class="cart-number">(@Session["count"])</span>}
+            else
+            {<span class="cart-number">(0)</span> }
         </div>
-        
+
         <ul class="nav navbar-nav nav-search">
             <div class="form-group margin-none">
                 <div class="input-group productsearch">
@@ -84,7 +89,7 @@
                     <span class="sr-only">Toggle Menu</span>
                     <i class="fa fa-bars"></i>
                 </button>
-            </div>            
+            </div>
             <div class="navbar-collapse collapse" id="main-navigation">
                 <!-- Main Menu -->
                 <ul class="nav navbar-nav navbar-right">
@@ -93,44 +98,44 @@
                         <ul class="mega-dropdown row">
                             @for (int i = 0; i < 2; i++)
                             {
-                            <li class="col-sm-3">
-                                <ul class="mega-menu-items">
-                                    <li class="heading">@Html.ActionLink(Model.HealthProductCategories[i].CategoryName, "Details", "HpSubCategories", new { id = Model.HealthProductCategories[i].CategoryId }, null)</li>
-                                    @foreach (var subcat in Model.HealthProductCategories[i].SubCategories)
+                                <li class="col-sm-3">
+                                    <ul class="mega-menu-items">
+                                        <li class="heading">@Html.ActionLink(Model.HealthProductCategories[i].CategoryName, "Details", "HpSubCategories", new { id = Model.HealthProductCategories[i].CategoryId }, null)</li>
+                                        @foreach (var subcat in Model.HealthProductCategories[i].SubCategories)
                                         {
-                                    <li>@Html.ActionLink(@subcat.SubCatName, "Details", "HpSubClassifications", new { id = subcat.SubCat_Id }, null)</li>
+                                            <li>@Html.ActionLink(@subcat.SubCatName, "Details", "HpSubClassifications", new { id = subcat.SubCat_Id }, null)</li>
                                         }
-                                    <li class="hr"></li>
-                                </ul>
-                            </li>
+                                        <li class="hr"></li>
+                                    </ul>
+                                </li>
                             }
 
                             @for (int i = 2; i < 4; i++)
                             {
-                            <li class="col-sm-3">
-                                <ul class="mega-menu-items">
-                                    <li class="heading">@Html.ActionLink(Model.HealthProductCategories[i].CategoryName, "Details", "HpSubCategories", new { id = Model.HealthProductCategories[i].CategoryId }, null)</li>
-                                    @foreach (var subcat in Model.HealthProductCategories[i].SubCategories)
+                                <li class="col-sm-3">
+                                    <ul class="mega-menu-items">
+                                        <li class="heading">@Html.ActionLink(Model.HealthProductCategories[i].CategoryName, "Details", "HpSubCategories", new { id = Model.HealthProductCategories[i].CategoryId }, null)</li>
+                                        @foreach (var subcat in Model.HealthProductCategories[i].SubCategories)
                                         {
-                                    <li>@Html.ActionLink(@subcat.SubCatName, "Details", "HpSubClassifications", new { id = subcat.SubCat_Id }, null)</li>
+                                            <li>@Html.ActionLink(@subcat.SubCatName, "Details", "HpSubClassifications", new { id = subcat.SubCat_Id }, null)</li>
                                         }
-                                    <li class="hr"></li>
-                                </ul>
-                            </li>
+                                        <li class="hr"></li>
+                                    </ul>
+                                </li>
                             }
 
                             @for (int i = 4; i < Model.HealthProductCategories.Count; i++)
                             {
-                            <li class="col-sm-3">
-                                <ul class="mega-menu-items">
-                                    <li class="heading">@Html.ActionLink(Model.HealthProductCategories[i].CategoryName, "Details", "HpSubCategories", new { id = Model.HealthProductCategories[i].CategoryId }, null)</li>
-                                    @foreach (var subcat in Model.HealthProductCategories[i].SubCategories)
+                                <li class="col-sm-3">
+                                    <ul class="mega-menu-items">
+                                        <li class="heading">@Html.ActionLink(Model.HealthProductCategories[i].CategoryName, "Details", "HpSubCategories", new { id = Model.HealthProductCategories[i].CategoryId }, null)</li>
+                                        @foreach (var subcat in Model.HealthProductCategories[i].SubCategories)
                                         {
-                                    <li>@Html.ActionLink(@subcat.SubCatName, "Details", "HpSubClassifications", new { id = subcat.SubCat_Id }, null)</li>
+                                            <li>@Html.ActionLink(@subcat.SubCatName, "Details", "HpSubClassifications", new { id = subcat.SubCat_Id }, null)</li>
                                         }
-                                    <li class="hr"></li>
-                                </ul>
-                            </li>
+                                        <li class="hr"></li>
+                                    </ul>
+                                </li>
                             }
                         </ul>
                     </li>
@@ -144,7 +149,7 @@
                                         <li class="heading">@Html.ActionLink(Model.PharmacyCategories[i].PharmacyCategoryName, "Details", "PharmacySubCategories", new { id = Model.PharmacyCategories[i].PharmacyCategoryId }, null)</li>
                                         @foreach (var subcat in Model.PharmacyCategories[i].PharmacySubCategories)
                                         {
-                                        <li>@Html.ActionLink(@subcat.PharmacySubCatName, "Details", "PharmacyProducts", new { id = subcat.PharmacySubCatId }, null)</li>
+                                            <li>@Html.ActionLink(@subcat.PharmacySubCatName, "Details", "PharmacyProducts", new { id = subcat.PharmacySubCatId }, null)</li>
                                         }
                                         <li class="hr"></li>
                                     </ul>

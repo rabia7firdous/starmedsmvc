@@ -7,8 +7,8 @@
 <h2>Details</h2>
 
 
-    <h4>Products</h4>
-    <hr class="dotted-line">
+<h4>Products</h4>
+<hr class="dotted-line">
 
 <div class="product-wrapper">
 
@@ -28,7 +28,7 @@
                         {
                             <img class="img-responsive" src="~/Images/no-image-found.png" alt="product-image">
                         }
-                    </a>                    
+                    </a>
                 </div>
 
                 <div class="product-info">
@@ -52,13 +52,14 @@
 
                     </h6>
 
-                    <a class="btn btn-danger btn-block addToCartBtn" type="button" href="@Url.Action("AddHealthProducts", "Cart", new { id = product.Product_Id })">Add to Cart</a>
+                    <a class="btn btn-danger btn-block addToCartBtn" type="button" href="@Url.Action("AddProducts", "Cart", new { id = product.Product_Id, producttype = "healthproduct" })">Add to Cart</a>
 
                 </div>
 
 
 
-            </div>    }
+            </div>
+        }
     }
     else
     {

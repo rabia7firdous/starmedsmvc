@@ -7,7 +7,7 @@ namespace StarMedsMVC.Models
 {
     public class CartProductModel
     {
-        List<Product> HealthProducts { get; set; }
-        List<PharmacyProduct> PharmacyProducts { get; set; }
+       public List<Product> HealthProducts { get; set; }
+       public List<PharmacyProduct> PharmacyProducts { get; set; }
     }
 }

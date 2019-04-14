@@ -1,4 +1,5 @@
-﻿<!-- SmartWizard html -->
+﻿@model  StarMedsMVC.Models.CartProductModel
+<!-- SmartWizard html -->
 <div id="smartwizard">
     <ul>
         <li><a href="#step-1">Shopping Cart <br /><small>Step 1</small></a></li>
@@ -19,78 +20,83 @@
                             </div>
                         </div>
                     </div>
-                    <div class="contianer-fluid productlist-card">
-                        <div class="row productId">
-                            <img class="product-img center-block borderradius" width="60" src="https://static2.medplusmart.com/products/COMP0057_L.jpg">
-                            <a class="btn btnRemoveBdr"><i class="fa fa-trash-o size-14" aria-hidden="true"></i></a>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="row margin-l-r-none margin-b clearfix">
-                                    <div class="left w75">
-                                        <h5 class="color-black strong">COMPLAN NUTRI GRO CHOCOLATE REFILL 400GM</h5>
-                                        <p class="size-12 margin-b-5">1 Unit(s) / pack</p>
-                                        <p class="size-12 margin-b-5">
-                                            <span class="margin-r color-dgry">MRP / Pack <i class="fa fa-rupee size-10"></i> <span class="size-14">299.00</span></span>
-                                            MRP Total<i class="fa fa-rupee size-12 padding-l-5"></i> <span class="size-16 strong">299.00</span>
-                                        </p>
-                                    </div>
-                                    <div class="right clearfix">
-                                        <p class="size-12 text-right">
-                                            <span class="strong">Standard delivery - Free</span><br>
-                                            Available in 2 Days
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contianer-fluid productlist-card">
-                        <div class="row productId">
-                            <img class="product-img center-block borderradius" width="60" src="https://static2.medplusmart.com/products/COMP0057_L.jpg">
-                            <a class="btn btnRemoveBdr"><i class="fa fa-trash-o size-14" aria-hidden="true"></i></a>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="row margin-l-r-none margin-b clearfix">
-                                    <div class="left w75">
-                                        <h5 class="color-black strong">COMPLAN NUTRI GRO CHOCOLATE REFILL 400GM</h5>
-                                        <p class="size-12 margin-b-5">1 Unit(s) / pack</p>
-                                        <p class="size-12 margin-b-5">
-                                            <span class="margin-r color-dgry">MRP / Pack <i class="fa fa-rupee size-10"></i> <span class="size-14">299.00</span></span>
-                                            MRP Total<i class="fa fa-rupee size-12 padding-l-5"></i> <span class="size-16 strong">299.00</span>
-                                        </p>
-                                    </div>
-                                    <div class="right clearfix">
-                                        <p class="size-12 text-right">
-                                            <span class="strong">Standard delivery - Free</span><br>
-                                            Available in 2 Days
-                                        </p>
+                    @if (Model.HealthProducts.Count > 0)
+                    {
+                        foreach (var product in Model.HealthProducts)
+                        {
+                            <div class="contianer-fluid productlist-card">
+                                <div class="row productId">
+                                    @if (product.Product_Image != null)
+                                    {
+                                        <img class="product-img center-block borderradius" width="60" src="data:image/jpeg;base64,@(Convert.ToBase64String(product.Product_Image))">
+                                    }
+                                    else
+                                    {
+                                        <img class="img-responsive" src="~/Images/no-image-found.png" alt="product-image">
+                                    }
+                                    <a class="btn btnRemoveBdr" href="@Url.Action("RemoveProducts", "Cart", new { id = product.Product_Id, producttype = "healthproduct" })"><i class="fa fa-trash-o size-14" aria-hidden="true"></i></a>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="row margin-l-r-none margin-b clearfix">
+                                            <div class="left w75">
+                                                <h5 class="color-black strong">@product.Product_Name.ToUpper()</h5>
+                                                <p class="size-12 margin-b-5">@product.Quantity.ToUpper()</p>
+                                                <p class="size-12 margin-b-5">
+                                                    <span class="margin-r color-dgry">MRP / Pack <i class="fa fa-rupee size-10"></i> <span class="size-14">@product.Product_Price</span></span>
+                                                    MRP Total<i class="fa fa-rupee size-12 padding-l-5"></i> <span class="size-16 strong">@product.Product_Price</span>
+                                                </p>
+                                            </div>
+                                            <div class="right clearfix">
+                                                <p class="size-12 text-right">
+                                                    <span class="strong">Standard delivery - Free</span><br>
+                                                    Available in 2 Days
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="contianer-fluid productlist-card">
-                        <div class="row productId">
-                            <img class="product-img center-block borderradius" width="60" src="https://static2.medplusmart.com/products/COMP0057_L.jpg">
-                            <a class="btn btnRemoveBdr"><i class="fa fa-trash-o size-14" aria-hidden="true"></i></a>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="row margin-l-r-none margin-b clearfix">
-                                    <div class="left w75">
-                                        <h5 class="color-black strong">COMPLAN NUTRI GRO CHOCOLATE REFILL 400GM</h5>
-                                        <p class="size-12 margin-b-5">1 Unit(s) / pack</p>
-                                        <p class="size-12 margin-b-5">
-                                            <span class="margin-r color-dgry">MRP / Pack <i class="fa fa-rupee size-10"></i> <span class="size-14">299.00</span></span>
-                                            MRP Total<i class="fa fa-rupee size-12 padding-l-5"></i> <span class="size-16 strong">299.00</span>
-                                        </p>
-                                    </div>
-                                    <div class="right clearfix">
-                                        <p class="size-12 text-right">
-                                            <span class="strong">Standard delivery - Free</span><br>
-                                            Available in 2 Days
-                                        </p>
+                        }
+                    }
+
+                    @if (Model.PharmacyProducts.Count > 0)
+                    {
+                        foreach (var product in Model.PharmacyProducts)
+                        {
+                            <div class="contianer-fluid productlist-card">
+                                <div class="row productId">
+                                    @if (product.ProductImage != null)
+                                    {
+                                        <img class="product-img center-block borderradius" width="60" src="data:image/jpeg;base64,@(Convert.ToBase64String(product.ProductImage))">
+                                    }
+                                    else
+                                    {
+                                        <img class="img-responsive" src="~/Images/no-image-found.png" alt="product-image">
+                                    }
+
+                                    <a class="btn btnRemoveBdr" href="@Url.Action("RemoveProducts", "Cart", new { id = product.ProductId, producttype = "pharmacyproduct" })"><i class="fa fa-trash-o size-14" aria-hidden="true"></i></a>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="row margin-l-r-none margin-b clearfix">
+                                            <div class="left w75">
+                                                <h5 class="color-black strong">@product.ProductName.ToUpper()</h5>
+                                                <p class="size-12 margin-b-5">@product.Quantity</p>
+                                                <p class="size-12 margin-b-5">
+                                                    <span class="margin-r color-dgry">MRP / Pack <i class="fa fa-rupee size-10"></i> <span class="size-14">@product.ProductPrice</span></span>
+                                                    MRP Total<i class="fa fa-rupee size-12 padding-l-5"></i> <span class="size-16 strong">@product.ProductPrice</span>
+                                                </p>
+                                            </div>
+                                            <div class="right clearfix">
+                                                <p class="size-12 text-right">
+                                                    <span class="strong">Standard delivery - Free</span><br>
+                                                    Available in 2 Days
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        }
+                    }
+
                 </div>
                 <div class="col-xs-12 col-sm-4 padding-r-0">
                     <div class="padding-all checkout-container-row">
@@ -267,3 +273,6 @@
         </div>
     </div>
 </div>
+<script>
+
+</script>
