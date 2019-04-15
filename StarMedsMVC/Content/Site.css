@@ -1381,7 +1381,21 @@ h4.subtitle {
 table.table.table-bordered td.edit-row {
     width: 13%;
 }
-
+input.btn.btn-default {
+    max-width: 250px;
+    width: 100%;
+    border-radius: 0px;
+    margin-bottom: 20px;
+    height: 40px;
+    margin-top: 10px;
+        color: #fff;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+input.btn.btn-default:hover{
+        background-color: #057de4;
+    border-color: #057de4;
+}
 /* Override the default bootstrap behavior where horizontal description lists will truncate terms that are too long to fit in the left column */
 .dl-horizontal dt {
     white-space: normal;
