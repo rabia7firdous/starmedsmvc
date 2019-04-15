@@ -693,6 +693,7 @@ button.owl-next {
     width: 23%;
     max-width: 23%;
     margin-bottom: 20px;
+    position:relative;
 }
 
     .categories .product-image {
@@ -701,6 +702,7 @@ button.owl-next {
         position: relative;
         overflow: hidden;
         height: auto;
+        min-height:235px;
     }
 
         .categories .product-image img {
@@ -713,8 +715,11 @@ button.owl-next {
         }
 
     .categories .product-info {
-        background: #eee;
-        padding: 15px;
+      background: #eee;
+    padding: 15px;
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
     }
 
     .categories h3 {

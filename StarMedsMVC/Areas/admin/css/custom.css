@@ -29,7 +29,7 @@ body {
     padding-bottom: 20px;
     line-height: 30px;
     color: #fff;
-    height: 70px;
+    height: 69px;
 }
 
 .top-nav>li>a:hover,
@@ -118,6 +118,7 @@ body {
 
 .navbar-inverse .navbar-nav>li>a {
     color: #ddd;
+    padding-right: 40px;
 }
 
 .navbar-brand>img {
@@ -126,7 +127,84 @@ body {
     top: 50%;
     margin-top: -100px;
 }
+.navbar-nav .fa-fw{
+    float: left;
+    height: 30px;
+}
+.navbar-nav i.fa.fa-angle-double-right{
+    margin-right:7px;
+}
 
+table.table.table-bordered td p {
+    margin-bottom: 0px;
+}
+
+.table-bordered td img {
+    display: block;
+    margin: 0 auto;
+    max-width:100px;
+}
+
+table.table.table-bordered td {
+    padding: 12px;
+    vertical-align: middle;
+}
+
+
+.table-bordered > thead > tr > th {
+    border-bottom: 0px;
+    padding: 12px;
+}
+
+.edit-row i.fa {
+    padding-left: 6px;
+    padding-right: 5px;
+}
+
+.edit-row a.fa-icon {
+    display: inline-block;
+    padding-left: 2px;
+    padding-right: 5px;
+    color: #2e7cc0;
+    font-weight: 600;
+}
+
+.edit-row i.fa.fa-pencil {
+    color: #FFC107;
+}
+
+.edit-row i.fa.fa-clone {
+    color: #2e7cc0;
+}
+
+.edit-row i.fa.fa-trash {
+    color: #E34724;
+}
+div#renderView h2 {
+    color: #303f9f !important;
+    margin-bottom: 20px;
+}
+div#renderView {
+    max-width: 900px;
+}
+div#renderView  input.form-control {
+    border-radius: 0px;
+}
+div#renderView input.btn.btn-default {
+    max-width: 150px;
+    width: 100%;
+    border-radius: 0px;
+    margin-bottom: 20px;
+    height: 40px;
+    margin-top: 10px;
+        color: #fff;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+div#renderView input.btn.btn-default:hover{
+        background-color: #057de4;
+    border-color: #057de4;
+}
 @media(min-width:768px) {
     .side-nav {
         position: fixed;
