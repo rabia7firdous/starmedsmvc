@@ -22,6 +22,12 @@ namespace StarMedsMVC.Controllers
             return PartialView(subClassifications.ToList());
         }
 
+        public ActionResult EditIndex()
+        {
+            var subClassifications = db.SubClassifications.Include(s => s.SubCategory);
+            return PartialView(subClassifications.ToList());
+        }
+
         // GET: HpSubClassifications/Details/5
         public ActionResult Details(int? id)
         {

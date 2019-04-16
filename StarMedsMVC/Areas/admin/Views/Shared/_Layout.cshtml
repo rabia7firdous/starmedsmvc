@@ -35,7 +35,7 @@
             //Do stuff when clicked
             $.ajax({
                 type: "get",
-                url: "@Url.Action("Edit", "HpCategories", new { area = "" })",
+                url: "@Url.Action("EditIndex", "HpCategories", new { area = "" })",
                 success: function (d) {
                     /* d is the HTML of the returned response */
                     $("#renderView").html(d); //replaces previous HTML with action
@@ -73,7 +73,7 @@
             //Do stuff when clicked
             $.ajax({
                 type: "get",
-                url: "@Url.Action("Edit", "HpSubCategories", new { area = "" })",
+                url: "@Url.Action("EditIndex", "HpSubCategories", new { area = "" })",
                 success: function (d) {
                     /* d is the HTML of the returned response */
                     $("#renderView").html(d); //replaces previous HTML with action
@@ -110,7 +110,7 @@
             //Do stuff when clicked
             $.ajax({
                 type: "get",
-                url: "@Url.Action("Edit", "HpSubClassifications", new { area = "" })",
+                url: "@Url.Action("EditIndex", "HpSubClassifications", new { area = "" })",
                 success: function (d) {
                     /* d is the HTML of the returned response */
                     $("#renderView").html(d); //replaces previous HTML with action
@@ -148,7 +148,7 @@
             //Do stuff when clicked
             $.ajax({
                 type: "get",
-                url: "@Url.Action("Edit", "HpProducts", new { area = "" })",
+                url: "@Url.Action("EditIndex", "HpProducts", new { area = "" })",
                 success: function (d) {
                     /* d is the HTML of the returned response */
                     $("#renderView").html(d); //replaces previous HTML with action
@@ -187,7 +187,7 @@
             //Do stuff when clicked
             $.ajax({
                 type: "get",
-                url: "@Url.Action("Edit", "PharmacyCategories", new { area = "" })",
+                url: "@Url.Action("EditIndex", "PharmacyCategories", new { area = "" })",
                 success: function (d) {
                     /* d is the HTML of the returned response */
                     $("#renderView").html(d); //replaces previous HTML with action
@@ -225,7 +225,7 @@
             //Do stuff when clicked
             $.ajax({
                 type: "get",
-                url: "@Url.Action("Edit", "PharmacySubCategories", new { area = "" })",
+                url: "@Url.Action("EditIndex", "PharmacySubCategories", new { area = "" })",
                 success: function (d) {
                     /* d is the HTML of the returned response */
                     $("#renderView").html(d); //replaces previous HTML with action
@@ -263,7 +263,7 @@
             //Do stuff when clicked
             $.ajax({
                 type: "get",
-                url: "@Url.Action("Edit", "PharmacyProducts", new { area = "" })",
+                url: "@Url.Action("EditIndex", "PharmacyProducts", new { area = "" })",
                 success: function (d) {
                     /* d is the HTML of the returned response */
                     $("#renderView").html(d); //replaces previous HTML with action

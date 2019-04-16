@@ -22,6 +22,12 @@ namespace StarMedsMVC.Controllers
             return PartialView(subCategories.ToList());
         }
 
+        public ActionResult EditIndex()
+        {
+            var subCategories = db.SubCategories.Include(s => s.Category);
+            return PartialView(subCategories.ToList());
+        }
+
         // GET: HpSubCategories/Details/5
         public ActionResult Details(int? id)
         {

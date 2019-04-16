@@ -10,12 +10,18 @@ namespace StarMedsMVC.Controllers
 {
     public class NavigationMenuController : Controller
     {
+        private starmedsdbEntities db = new starmedsdbEntities();
         // GET: NavigationMenu
         public ActionResult Index()
         {
             NavigationMenuModel nav = new NavigationMenuModel();
             List<Category> hpcategories =  new List<Category>();
             List<PharmacyCategory> pharmacycategories = new List<PharmacyCategory>();
+            if (Session["UserID"] != null)
+            {
+                int userId = Convert.ToInt32(Session["UserID"]);
+                Session["count"] = db.Carts.Where(c => c.userid == userId).Count();
+            }
             using (starmedsdbEntities db = new starmedsdbEntities())
             {
                 hpcategories = db.Categories.Include(sc => sc.SubCategories.Select(s => s.SubClassifications)).ToList();

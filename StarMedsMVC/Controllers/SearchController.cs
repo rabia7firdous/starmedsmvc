@@ -5,9 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace StarMedsMVC.Controllers
-{
+{     
     public class SearchController : Controller
     {
+        private starmedsdbEntities db = new starmedsdbEntities();
         // GET: Search
         public ActionResult Index()
         {
@@ -85,5 +86,25 @@ namespace StarMedsMVC.Controllers
                 return View();
             }
         }
+
+
+        [HttpPost]
+        public JsonResult SearchProducts(string Prefix)
+        {
+              List<Product> HealthProducts =new List<Product>();
+              List<PharmacyProduct> PharmacyProducts = new List<PharmacyProduct>();
+              HealthProducts = db.Products.ToList();
+              PharmacyProducts = db.PharmacyProducts.ToList();
+          
+            //Searching records from list using LINQ query  
+              var HpSearchList = (from N in HealthProducts
+                            where N.Product_Name.StartsWith(Prefix)
+                                  select new { N.Product_Name }).ToList();
+              var PharmacySearchList = (from N in PharmacyProducts
+                                        where N.ProductName.StartsWith(Prefix)
+                                        select new { N.ProductName }).ToList();
+
+              return Json(HpSearchList, JsonRequestBehavior.AllowGet);
+        } 
     }
 }

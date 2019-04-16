@@ -22,6 +22,12 @@ namespace StarMedsMVC.Controllers
             return PartialView(products.ToList());
         }
 
+        public ActionResult EditIndex()
+        {
+            var products = db.Products.Include(p => p.SubClassification);
+            return PartialView(products.ToList());
+        }
+
         // GET: HpProducts/Details/5
         public ActionResult Details(int? id)
         {

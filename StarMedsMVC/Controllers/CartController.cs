@@ -21,6 +21,9 @@ namespace StarMedsMVC.Controllers
             CartProductModel cartProducts = new CartProductModel();
             cartProducts.HealthProducts = new List<Product>();
             cartProducts.PharmacyProducts = new List<PharmacyProduct>();
+            cartProducts.Addresses = new List<Address>();
+            cartProducts.TotalItems = 0;
+            cartProducts.TotalPrice = 0;
 
             int UserId = 0;
             if (Session["UserID"] == null)
@@ -31,21 +34,42 @@ namespace StarMedsMVC.Controllers
             {
                 UserId = Convert.ToInt32(Session["UserID"]);
             }
+
+            //get products from cart table
             var products = db.Carts.Where(c => c.userid == UserId).ToList();
             foreach (var product in products)
             {
+                cartProducts.TotalItems++;               
                 if (product.producttype == "healthproduct")
                 {
                     var prod = db.Products.Where(i => i.Product_Id == product.productid).FirstOrDefault();
                     cartProducts.HealthProducts.Add(prod);
+                    cartProducts.TotalPrice = cartProducts.TotalPrice + Convert.ToInt32(prod.Product_Price);
                 }
                 else if (product.producttype == "pharmacyproduct")
                 {
                     var prod = db.PharmacyProducts.Where(i => i.ProductId == product.productid).FirstOrDefault();
                     cartProducts.PharmacyProducts.Add(prod);
+                    cartProducts.TotalPrice = cartProducts.TotalPrice + Convert.ToInt32(prod.ProductPrice);
                 }
             }
 
+            //get adresses from adress table
+            var addresses= db.Addresses.Where(c => c.UserId == UserId).ToList();
+            cartProducts.Addresses = addresses.Select(i => new Address()
+            {
+                AddressId = i.AddressId,
+                AddressDoorNo = i.AddressDoorNo,
+                AddressLine1 = i.AddressLine1,
+                AddressLine2 = i.AddressLine2,
+                LandMark = i.LandMark,
+                PinCode = i.PinCode,
+                UserId = i.UserId,
+                Name=i.Name,
+                City=i.City,
+                State=i.State
+            }).ToList(); ;
+            Session["count"] = db.Carts.Where(c => c.userid == UserId).Count();
             return View("Index", cartProducts);
 
         }
@@ -108,6 +132,8 @@ namespace StarMedsMVC.Controllers
             CartProductModel cartProducts = new CartProductModel();
             cartProducts.HealthProducts = new List<Product>();
             cartProducts.PharmacyProducts = new List<PharmacyProduct>();
+            cartProducts.TotalItems = 0;
+            cartProducts.TotalPrice = 0;
 
             int UserId = 0;
             if (Session["UserID"] == null)
@@ -128,17 +154,21 @@ namespace StarMedsMVC.Controllers
             var products = db.Carts.Where(c => c.userid == UserId).ToList();
             foreach (var product in products)
             {
+                cartProducts.TotalItems++;
                 if (product.producttype == "healthproduct")
                 {
                     var prod = db.Products.Where(i => i.Product_Id == product.productid).FirstOrDefault();
                     cartProducts.HealthProducts.Add(prod);
+                    cartProducts.TotalPrice = cartProducts.TotalPrice + Convert.ToInt32(prod.Product_Price);
                 }
                 else if (product.producttype == "pharmacyproduct")
                 {
                     var prod = db.PharmacyProducts.Where(i => i.ProductId == product.productid).FirstOrDefault();
                     cartProducts.PharmacyProducts.Add(prod);
+                    cartProducts.TotalPrice = cartProducts.TotalPrice + Convert.ToInt32(prod.ProductPrice);
                 }
             }
+            Session["count"] = db.Carts.Where(c => c.userid == UserId).Count();
             return View("Index", cartProducts);
         }
     }

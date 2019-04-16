@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - StarMeds</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     @Styles.Render("~/Content/owl.carousel.min.css")
     @Styles.Render("~/Content/smart_wizard.min.css")
     @Styles.Render("~/Content/css")
@@ -33,5 +34,27 @@
     @Scripts.Render("~/scripts/owl.carousel.min.js")
     @Scripts.Render("~/scripts/CustomScript.js")
     @RenderSection("scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $("#txtSearch").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Search/SearchProducts",
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.ProductName, value: item.ProductName };
+                            }))
+                        }
+                    })
+                },
+                messages: {
+                    noResults: "", results: ""
+                }
+            });
+        })
+    </script>
 </body>
 </html>

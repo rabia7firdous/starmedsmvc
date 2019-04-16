@@ -46,7 +46,7 @@ namespace StarMedsMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AddressId,AddressDoorNo,AddressLine1,AddressLine2,LandMark,PinCode,UserId")] Address address)
+        public ActionResult Create([Bind(Include = "AddressId,AddressDoorNo,AddressLine1,AddressLine2,LandMark,PinCode,UserId,Name,City,State")] Address address)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace StarMedsMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AddressId,AddressDoorNo,AddressLine1,AddressLine2,LandMark,PinCode,UserId")] Address address)
+        public ActionResult Edit([Bind(Include = "AddressId,AddressDoorNo,AddressLine1,AddressLine2,LandMark,PinCode,UserId,Name,City,State")] Address address)
         {
             if (ModelState.IsValid)
             {

@@ -38,7 +38,7 @@
         <th>
             @Html.DisplayNameFor(model => model.PharmacySubCategory.PharmacySubCatName)
         </th>
-       
+        <th></th>
     </tr>
 
     @foreach (var item in Model)
@@ -80,7 +80,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PharmacySubCategory.PharmacySubCatName)
             </td>
-            
+            <td class="edit-row">
+                <i class="fa fa-pencil" aria-hidden="true"></i>@Html.ActionLink("Edit", "Edit", new { id = item.ProductId }, new { @class = "edit-link fa-icon" }) |
+                <i class="fa fa-trash" aria-hidden="true"></i> @Html.ActionLink("Delete", "Delete", new { id = item.ProductId }, new { @class = "delete-link fa-icon" })
+            </td>
         </tr>
     }
 
