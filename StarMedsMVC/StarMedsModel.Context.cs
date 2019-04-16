@@ -33,5 +33,9 @@ namespace StarMedsMVC
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<SubCategory> SubCategories { get; set; }
         public virtual DbSet<SubClassification> SubClassifications { get; set; }
+        public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<Admin> Admins { get; set; }
+        public virtual DbSet<Cart> Carts { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
     }
 }
