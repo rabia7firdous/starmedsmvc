@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StarMedsMVC.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -89,7 +90,7 @@ namespace StarMedsMVC.Controllers
 
 
         [HttpPost]
-        public JsonResult SearchProducts(string Prefix)
+        public JsonResult SearchSuggestions(string Prefix)
         {
               List<Product> HealthProducts =new List<Product>();
               List<PharmacyProduct> PharmacyProducts = new List<PharmacyProduct>();
@@ -105,6 +106,19 @@ namespace StarMedsMVC.Controllers
                                         select new { N.ProductName }).ToList();
 
               return Json(HpSearchList, JsonRequestBehavior.AllowGet);
-        } 
+        }
+
+
+        [HttpPost]
+        public ActionResult SearchProducts(string searchText)
+        {
+            SearchModel searchResults = new SearchModel();
+            searchResults.SearchText = searchText;
+            searchResults.HealthProducts = new List<Product>();
+            searchResults.PharmacyProducts = new List<PharmacyProduct>();
+            searchResults.HealthProducts = db.Products.Where(i=>i.Product_Name.ToLower().Contains(searchText.ToLower())).ToList();
+            searchResults.PharmacyProducts = db.PharmacyProducts.Where(i => i.ProductName.ToLower().Contains(searchText.ToLower())).ToList();
+            return View("Index", searchResults);
+        }
     }
 }

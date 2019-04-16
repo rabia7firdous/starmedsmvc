@@ -39,7 +39,7 @@
             $("#txtSearch").autocomplete({
                 source: function (request, response) {
                     $.ajax({
-                        url: "/Search/SearchProducts",
+                        url: "/Search/SearchSuggestions",
                         type: "POST",
                         dataType: "json",
                         data: { Prefix: request.term },
