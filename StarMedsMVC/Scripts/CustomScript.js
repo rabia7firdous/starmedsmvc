@@ -21,5 +21,30 @@
 
 $(document).ready(function () {
 
-        $('#smartwizard').smartWizard();
+    $('#smartwizard').smartWizard({
+
+     
+    });
+
+    $('.btn.disabled.sw-btn-next').text('Add to cart');
+
+    $(".btn.sw-btn-next").click(function () {
+        $('.btn.disabled.sw-btn-next').text('Add to cart');
+
+    });
+
+    $(".btn.sw-btn-prev").click(function () {
+        $('.btn.sw-btn-next').text('Next');
+
+    });
+
+
+    $('.btn.disabled.sw-btn-next').click(function () {
+        alert("add to cart btn clicked");
+
+    });
+
+
+    
+
 });

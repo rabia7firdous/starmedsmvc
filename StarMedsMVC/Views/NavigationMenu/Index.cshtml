@@ -47,11 +47,12 @@
         </div>
 
         <ul class="nav navbar-nav nav-search">
+@using (Html.BeginForm("SearchProducts", "Search", FormMethod.Post))
+{
             <div class="form-group margin-none">
                 <div class="input-group productsearch">
 
-                    @using (Html.BeginForm("SearchProducts", "Search", FormMethod.Post))
-                    {
+                  
                         <span class="input-group-btn">
                             <button class="btn btnMenu" type="button" id="MartSearchCategories" data-toggle="dropdown">All Product<span class="caret"></span></button>
                             <ul class="dropdown-menu categories-drpdwn" aria-labelledby="MartSearchCategories">
@@ -71,7 +72,7 @@
                             <button class="btn btnDark" type="submit"><i class="fa fa-search"></i> SEARCH</button>
                         </span>
 
-                    }
+                   
                 </div>
                 <div class="serach-result-box" style="display:none">
                     <ul class="search-list">
@@ -82,6 +83,7 @@
                     </ul>
                 </div>
             </div>
+}
         </ul>
     </nav>
 </div>
