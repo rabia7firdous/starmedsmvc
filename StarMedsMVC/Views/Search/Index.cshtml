@@ -46,10 +46,8 @@
                                 </td>
 
                                 <td class="text-center">
-                                    <button class="btn btn-danger btn-sm addToCartBtn" type="button">
-                                        Add to
-                                        Cart
-                                    </button>
+                                    <a class="btn btn-danger btn-sm addToCartBtn" type="button" href="@Url.Action("AddProducts", "Cart", new { id = item.Product_Id, producttype = "healthproduct" })">Add to Cart</a>
+                                    
                                 </td>
                             </tr>
                         }
@@ -71,10 +69,7 @@
                                 </td>
 
                                 <td class="text-center">
-                                    <button class="btn btn-danger btn-sm addToCartBtn" type="button">
-                                        Add to
-                                        Cart
-                                    </button>
+                                    <a class="btn btn-danger btn-sm addToCartBtn" type="button" href="@Url.Action("AddProducts", "Cart", new { id = item.ProductId, producttype = "pharmacyproduct" })">Add to Cart</a>                                   
                                 </td>
                             </tr>
                         }

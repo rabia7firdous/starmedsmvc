@@ -21,15 +21,38 @@
 
 $(document).ready(function () {
 
-    $('#smartwizard').smartWizard({
+    //$('#smartwizard').smartWizard({
 
      
+    //});
+
+
+
+
+    $('#wizard').smartWizard({
+        labelNext: 'Next', // label for Next button
+        labelPrevious: 'Previous', // label for Previous button
+        labelFinish: 'Finish',  // label for Finish button  
+        buttonOrder: ['finish', 'next', 'prev'],
+        enableFinishButton: false,
+        //onShowStep: showAStepCallback,
+        //onFinish: onFinishCallback,
+        onLeaveStep: function (from, to) {
+            //do nothing
+            alert('leavetest')
+            return true;
+        }, // triggers when leaving a step
+        onShowStep: alert('test'),  // triggers when showing a step
+        onFinish: function () {
+            alert('testnew');
+        },  // triggers when Finish button is clicked  
+        buttonOrder: ['finish', 'next', 'prev']  // button order, to hide a button remove it from the list
     });
 
-    $('.btn.disabled.sw-btn-next').text('Add to cart');
+    $('.btn.disabled.sw-btn-next').text('Place Order');
 
     $(".btn.sw-btn-next").click(function () {
-        $('.btn.disabled.sw-btn-next').text('Add to cart');
+        $('.btn.disabled.sw-btn-next').text('Place Order');
 
     });
 
@@ -39,11 +62,11 @@ $(document).ready(function () {
     });
 
 
-    $('.btn.disabled.sw-btn-next').click(function () {
-        alert("add to cart btn clicked");
+   
 
-    });
 
+
+    
 
     
 

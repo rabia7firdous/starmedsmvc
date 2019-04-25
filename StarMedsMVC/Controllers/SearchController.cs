@@ -110,14 +110,14 @@ namespace StarMedsMVC.Controllers
 
 
         [HttpPost]
-        public ActionResult SearchProducts(string searchText)
+        public ActionResult SearchProducts(string SearchKeyWord)
         {
             SearchModel searchResults = new SearchModel();
-            searchResults.SearchText = searchText;
+            searchResults.SearchText = SearchKeyWord;
             searchResults.HealthProducts = new List<Product>();
             searchResults.PharmacyProducts = new List<PharmacyProduct>();
-            searchResults.HealthProducts = db.Products.Where(i=>i.Product_Name.ToLower().Contains(searchText.ToLower())).ToList();
-            searchResults.PharmacyProducts = db.PharmacyProducts.Where(i => i.ProductName.ToLower().Contains(searchText.ToLower())).ToList();
+            searchResults.HealthProducts = db.Products.Where(i => i.Product_Name.ToLower().Contains(SearchKeyWord.ToLower())).ToList();
+            searchResults.PharmacyProducts = db.PharmacyProducts.Where(i => i.ProductName.ToLower().Contains(SearchKeyWord.ToLower())).ToList();
             return View("Index", searchResults);
         }
     }
