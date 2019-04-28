@@ -207,67 +207,137 @@ namespace StarMedsMVC.Controllers
             }
             else
             {
-                orderPlacedProduct orderpp = new orderPlacedProduct();
-                string orderedhp_products = string.Empty;
-                foreach (var item in cartProducts.HealthProducts)
+                if (paymentType == "cod")
                 {
-                    if (string.IsNullOrEmpty(orderedhp_products))
+                    orderPlacedProduct orderpp = new orderPlacedProduct();
+                    string orderedhp_products = string.Empty;
+                    foreach (var item in cartProducts.HealthProducts)
                     {
-                        orderedhp_products = item.Product_Id.ToString();
+                        if (string.IsNullOrEmpty(orderedhp_products))
+                        {
+                            orderedhp_products = item.Product_Id.ToString();
+                        }
+                        else
+                        {
+                            orderedhp_products = orderedhp_products + "|" + item.Product_Id.ToString();
+                        }
+
+                    }
+
+                    string orderedpharm_products = string.Empty;
+                    foreach (var item in cartProducts.PharmacyProducts)
+                    {
+                        if (string.IsNullOrEmpty(orderedpharm_products))
+                        {
+                            orderedpharm_products = item.ProductId.ToString();
+                        }
+                        else
+                        {
+                            orderedpharm_products = orderedpharm_products + "|" + item.ProductId.ToString();
+                        }
+                    }
+                    orderpp.orderPlacedHealthProducts = orderedhp_products;
+                    orderpp.orderPlacedPharmacyProducts = orderedpharm_products;
+                    db.orderPlacedProducts.Add(orderpp);
+                    db.SaveChanges();
+
+                    int orderPlacedId = orderpp.orderPlacedId;
+
+                    Order order = new Order();
+                    order.orderdate = DateTime.Now.Date;
+                    order.orderstatus = "In Progress";
+                    order.userid = UserId;
+                    order.addressid = addressId;
+                    order.paymenttype = paymentType;
+                    if (paymentType == "online")
+                    {
+                        order.paymentstatus = "complete";
                     }
                     else
                     {
-                        orderedhp_products = orderedhp_products + "|" + item.Product_Id.ToString();
+                        order.paymentstatus = "In Progress";
                     }
+                    order.totalamount = cartProducts.TotalPrice;
+                    order.orderPlacedId = orderPlacedId;
+                    order.totalItems = cartProducts.TotalItems;
+                    db.Orders.Add(order);
+                    db.SaveChanges();
 
-                }
 
-                string orderedpharm_products = string.Empty;
-                foreach (var item in cartProducts.PharmacyProducts)
-                {
-                    if (string.IsNullOrEmpty(orderedpharm_products))
+                    var cartproducts = db.Carts.Where(i => i.userid == UserId).ToList();
+                    foreach (var item in cartproducts)
                     {
-                        orderedpharm_products = item.ProductId.ToString();
+                        db.Carts.Remove(item);
+                        db.SaveChanges();
                     }
-                    else
-                    {
-                        orderedpharm_products = orderedpharm_products + "|" + item.ProductId.ToString();
-                    }
-                }
-                orderpp.orderPlacedHealthProducts = orderedhp_products;
-                orderpp.orderPlacedPharmacyProducts = orderedpharm_products;
-                db.orderPlacedProducts.Add(orderpp);
-                db.SaveChanges();
-
-                int orderPlacedId = orderpp.orderPlacedId;
-
-                Order order = new Order();
-                order.orderdate = DateTime.Now.Date;
-                order.orderstatus = "In Progress";
-                order.userid = UserId;
-                order.addressid = addressId;
-                order.paymenttype = paymentType;
-                if (paymentType == "online")
-                {
-                    order.paymentstatus = "complete";
                 }
                 else
                 {
-                    order.paymentstatus = "In Progress";
-                }
-                order.totalamount = cartProducts.TotalPrice;
-                order.orderPlacedId = orderPlacedId;
-                order.totalItems = cartProducts.TotalItems;                
-                db.Orders.Add(order);
-                db.SaveChanges();
+                    orderPlacedProduct orderpp = new orderPlacedProduct();
+                    string orderedhp_products = string.Empty;
+                    foreach (var item in cartProducts.HealthProducts)
+                    {
+                        if (string.IsNullOrEmpty(orderedhp_products))
+                        {
+                            orderedhp_products = item.Product_Id.ToString();
+                        }
+                        else
+                        {
+                            orderedhp_products = orderedhp_products + "|" + item.Product_Id.ToString();
+                        }
 
+                    }
 
-                var cartproducts = db.Carts.Where(i => i.userid == UserId).ToList();
-                foreach (var item in cartproducts)
-                {
-                    db.Carts.Remove(item);
+                    string orderedpharm_products = string.Empty;
+                    foreach (var item in cartProducts.PharmacyProducts)
+                    {
+                        if (string.IsNullOrEmpty(orderedpharm_products))
+                        {
+                            orderedpharm_products = item.ProductId.ToString();
+                        }
+                        else
+                        {
+                            orderedpharm_products = orderedpharm_products + "|" + item.ProductId.ToString();
+                        }
+                    }
+                    orderpp.orderPlacedHealthProducts = orderedhp_products;
+                    orderpp.orderPlacedPharmacyProducts = orderedpharm_products;
+                    db.orderPlacedProducts.Add(orderpp);
                     db.SaveChanges();
+
+                    int orderPlacedId = orderpp.orderPlacedId;
+
+                    Order order = new Order();
+                    order.orderdate = DateTime.Now.Date;
+                    order.orderstatus = "In Progress";
+                    order.userid = UserId;
+                    order.addressid = addressId;
+                    order.paymenttype = paymentType;
+                    if (paymentType == "online")
+                    {
+                        order.paymentstatus = "complete";
+                    }
+                    else
+                    {
+                        order.paymentstatus = "In Progress";
+                    }
+                    order.totalamount = cartProducts.TotalPrice;
+                    order.orderPlacedId = orderPlacedId;
+                    order.totalItems = cartProducts.TotalItems;
+                    db.Orders.Add(order);
+                    db.SaveChanges();
+                    var cartproducts = db.Carts.Where(i => i.userid == UserId).ToList();
+                    foreach (var item in cartproducts)
+                    {
+                        db.Carts.Remove(item);
+                        db.SaveChanges();
+                    }
+
+                    
                 }
+
+
+
                 return View("OrderPlaced");
             }
         }
