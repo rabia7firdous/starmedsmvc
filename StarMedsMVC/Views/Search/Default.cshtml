@@ -1,0 +1,38 @@
+﻿
+@using (Html.BeginForm("SearchProducts", "Search", FormMethod.Post))
+{
+    <div class="form-group margin-none">
+        <div class="input-group productsearch">
+
+
+            <span class="input-group-btn">
+                <button class="btn btnMenu" type="button" id="MartSearchCategories" data-toggle="dropdown">All Product<span class="caret"></span></button>
+                <ul class="dropdown-menu categories-drpdwn" aria-labelledby="MartSearchCategories">
+                    <li><a href="javascript:;" id="general"><i class="fa fa-check-circle"></i> General Store</a></li>
+
+                    <li><a href="javascript:;" id="pharmacy"><i class="fa fa-check-circle"></i> Pharmacy</a></li>
+
+                    <li><a href="javascript:;" id="allProducts" class="active"><i class="fa fa-check-circle"></i> All Products</a></li>
+                </ul>
+            </span>
+            <span class="twitter-typeahead srchdropdwn container-fluid padding-none">
+                <input id="txtSearch" name="txtSearch" data-provide="typeahead" type="text" class="form-control navtxtSearch typeahead tw-typeahead tt-query" placeholder="Search for... general or pharma products" autocomplete="on" spellcheck="false" dir="auto">
+
+            </span>
+            <i class="fa fa-refresh fa-spin fa-fw loadproducts hide"></i>
+            <span class="input-group-btn">
+                <button class="btn btnDark" type="submit"><i class="fa fa-search"></i> SEARCH</button>
+            </span>
+
+
+        </div>
+        <div class="serach-result-box" style="display:none">
+            <ul class="search-list">
+                <li class="searh-list-item"><a href="#">List</a></li>
+                <li class="searh-list-item"><a href="#">List</a></li>
+                <li class="searh-list-item"><a href="#">List</a></li>
+                <li class="searh-list-item"><a href="#">List</a></li>
+            </ul>
+        </div>
+    </div>
+}

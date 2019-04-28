@@ -1,0 +1,131 @@
+﻿@model  StarMedsMVC.Models.CartProductModel
+<div>
+    <ul>
+        <li><a href="#step-1">Shopping Cart <br /><small>Step 1</small></a></li>
+    </ul>
+    <div>
+        <div id="step-1">
+            <div class="row margin-none">
+
+                @if (Model.PharmacyProducts.Count == 0 && Model.HealthProducts.Count == 0)
+                {
+                    <h3>No Products Added to cart</h3>
+                }
+                else
+                {
+                    <div class="col-xs-12 col-sm-8 padding-none">
+                        <div class="contianer-fluid productlist-card productlist-card-title">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <h5 class="margin-none strong">Product Details</h5>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-right">
+                                    <h5 class="margin-none strong">Delivery Options</h5>
+                                </div>
+                            </div>
+                        </div>
+                        @if (Model.HealthProducts.Count > 0)
+                        {
+                            foreach (var product in Model.HealthProducts)
+                            {
+                                <div class="contianer-fluid productlist-card">
+                                    <div class="row productId">
+                                        @if (product.Product_Image != null)
+                                        {
+                                            <img class="product-img center-block borderradius" width="60" src="data:image/jpeg;base64,@(Convert.ToBase64String(product.Product_Image))">
+                                        }
+                                        else
+                                        {
+                                            <img class="img-responsive" src="~/Images/no-image-found.png" alt="product-image">
+                                        }
+                                        <a class="btn btnRemoveBdr" href="@Url.Action("RemoveProducts", "Cart", new { id = product.Product_Id, producttype = "healthproduct" })"><i class="fa fa-trash-o size-14" aria-hidden="true"></i></a>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div class="row margin-l-r-none margin-b clearfix">
+                                                <div class="left w75">
+                                                    <h5 class="color-black strong">@product.Product_Name.ToUpper()</h5>
+                                                    <p class="size-12 margin-b-5">@product.Quantity.ToUpper()</p>
+                                                    <p class="size-12 margin-b-5">
+                                                        <span class="margin-r color-dgry">MRP / Pack <i class="fa fa-rupee size-10"></i> <span class="size-14">@product.Product_Price</span></span>
+                                                        MRP Total<i class="fa fa-rupee size-12 padding-l-5"></i> <span class="size-16 strong">@product.Product_Price</span>
+                                                    </p>
+                                                </div>
+                                                <div class="right clearfix">
+                                                    <p class="size-12 text-right">
+                                                        <span class="strong">Standard delivery - Free</span><br>
+                                                        Available in 2 Days
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                        @if (Model.PharmacyProducts.Count > 0)
+                        {
+                            foreach (var product in Model.PharmacyProducts)
+                            {
+                                <div class="contianer-fluid productlist-card">
+                                    <div class="row productId">
+                                        @if (product.ProductImage != null)
+                                        {
+                                            <img class="product-img center-block borderradius" width="60" src="data:image/jpeg;base64,@(Convert.ToBase64String(product.ProductImage))">
+                                        }
+                                        else
+                                        {
+                                            <img class="img-responsive" src="~/Images/no-image-found.png" alt="product-image">
+                                        }
+
+                                        <a class="btn btnRemoveBdr" href="@Url.Action("RemoveProducts", "Cart", new { id = product.ProductId, producttype = "pharmacyproduct" })"><i class="fa fa-trash-o size-14" aria-hidden="true"></i></a>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div class="row margin-l-r-none margin-b clearfix">
+                                                <div class="left w75">
+                                                    <h5 class="color-black strong">@product.ProductName.ToUpper()</h5>
+                                                    <p class="size-12 margin-b-5">@product.Quantity</p>
+                                                    <p class="size-12 margin-b-5">
+                                                        <span class="margin-r color-dgry">MRP / Pack <i class="fa fa-rupee size-10"></i> <span class="size-14">@product.ProductPrice</span></span>
+                                                        MRP Total<i class="fa fa-rupee size-12 padding-l-5"></i> <span class="size-16 strong">@product.ProductPrice</span>
+                                                    </p>
+                                                </div>
+                                                <div class="right clearfix">
+                                                    <p class="size-12 text-right">
+                                                        <span class="strong">Standard delivery - Free</span><br>
+                                                        Available in 2 Days
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                    </div>
+                    <div class="col-xs-12 col-sm-4 padding-r-0">
+                        <div class="padding-all checkout-container-row">
+                            <h5 class="padding-b padding-l-none size-16 margin-t-b-none">Order Summary</h5>
+                            <div class="lineheight26 size-13">
+                                <div>No. of Items<span class="right">@Model.TotalItems</span></div>
+                                <div class="strong">MRP Total <span class="right"><i class="fa fa-rupee color-label size-10 padding-l-5"></i> @Model.TotalPrice</span></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            @if (Model.PharmacyProducts.Count == 0 && Model.HealthProducts.Count == 0)
+            {
+                <div class="btn-group mr-2 sw-btn-group" role="group">
+                    <button class="btn btn-secondary sw-btn-next" type="button" disabled onclick="@("location.href='" + Url.Action("SecondStep", "Cart") + "'")">Next</button>
+                </div>
+            }
+            else
+            {
+                <div class="btn-group mr-2 sw-btn-group" role="group">
+                    <button class="btn btn-secondary sw-btn-next" type="button" onclick="@("location.href='" + Url.Action("SecondStep", "Cart") + "'")">Next</button>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

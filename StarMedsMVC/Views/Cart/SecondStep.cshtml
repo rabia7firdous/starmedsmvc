@@ -1,0 +1,76 @@
+﻿@model  StarMedsMVC.Models.CartProductModel
+<div>
+    <ul>
+        <li><a href="#step-2">Delivery Details<br /><small> Step 2</small></a></li>
+    </ul>
+    <div>
+        @using (Html.BeginForm("FinalStep", "Cart", FormMethod.Post))
+        {
+
+            <div id="step-2">
+                <div class="clearfix">
+                    @if (Model.Addresses.Count == 0)
+                    {
+                        <h3>No Address Added</h3>
+                        <div class="col-xs-12 col-sm-4">
+                            <h4 class="subtitle">Add New Address For Home Delivery </h4><a href="@Url.Action("Create", "Addresses")"> Click Here</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-xs-12 col-sm-8">
+                            <h4 class="subtitle">Address For Home Delivery</h4>
+
+                            @if (Model.Addresses.Count > 0)
+                            {
+                                int count = 0;
+                                foreach (var addr in Model.Addresses)
+                                {
+                                    count++;
+                                    <div class="radio-item-panel">
+                                        <p>
+                                            <input type="radio" id="@("address"+count)" name="customeraddress" value=@addr.AddressId>
+                                            <label for="@("address"+count)">
+                                                <strong>@addr.Name</strong>
+                                                @addr.AddressDoorNo, @addr.AddressLine1, @addr.AddressLine1, @addr.LandMark, @addr.City, @addr.State, @addr.PinCode
+                                            </label>
+                                        </p>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <h4>No Address Added</h4>
+                            }
+
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <h4 class="subtitle">Add New Address For Home Delivery </h4><a href="@Url.Action("Create", "Addresses")"> Click Here</a>
+                        </div>
+                    }
+
+                </div>
+                <label class="label-success">@ViewBag.message</label>
+                <div class="btn-group mr-2 sw-btn-group" role="group">
+                    <button class="btn btn-secondary sw-btn-prev" type="button" onclick="@("location.href='" + Url.Action("MyCart", "Cart") + "'")">
+                        Previous
+                    </button>
+
+                    @if (Model.Addresses.Count==0)
+                    {
+                        <button class="btn btn-secondary sw-btn-next" type="submit" disabled onclick="@("location.href='" + Url.Action("FinalStep", "Cart") + "'")">
+                            Next
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-secondary sw-btn-next" type="submit" onclick="@("location.href='" + Url.Action("FinalStep", "Cart") + "'")">
+                            Next
+                        </button>
+                    }
+
+                </div>
+            </div>
+        }
+    </div>
+</div>

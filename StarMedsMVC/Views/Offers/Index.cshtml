@@ -1,295 +1,99 @@
-﻿
+﻿@model StarMedsMVC.Models.OffersModel
 <div class="offer-slider clearfix">
-    <h3>Offers</h3>
+    <h3>Health Product Offers</h3>
     <div class="owl-carousel owl-theme">
-        <div class="item">
+        @foreach (var item in Model.HealthProducts)
+        {
+            <div class="item">
 
-            <div class="product-image"><img class="img-responsive" src="https://static2.medplusmart.com/products/HORL0071_S.jpg?v=51ae0a" alt="product-image"></div>
+                <div class="product-image">
+                    @if (item.Product_Image != null)
+                    {
+                        <img src="data:image/jpeg;base64,@(Convert.ToBase64String(item.Product_Image))">
+                    }
+                    else
+                    {
+                        <img class="img-responsive" src="~/Images/no-image-found.png" alt="product-image">
+                    }
+                
+                </div>
 
-            <div class="product-info">
+                <div class="product-info">
 
-                <h6 class="caps lhgt20">
+                    <h6 class="caps lhgt20">
 
-                    <span class="productName">COMPLAN PISTA BADAM REFILL 500GM</span>
+                        <span class="productName">@item.Product_Name</span>
 
-                </h6>
+                    </h6>
 
-                <h6 class="price-text-color padding-t-b-5 margin-none">
+                    <h6 class="price-text-color padding-t-b-5 margin-none">
 
-                    <strong class="large-text color-red">Rs 443.00</strong>
+                        <strong class="large-text color-red">Rs @item.Product_Price</strong>
 
-                    <span class="strike">Rs 495</span>
+                        <span class="strike">Rs @item.Product_Price</span>                       
+
+                    </h6>
+
+                    <a class="btn btn-danger btn-block addToCartBtn" type="button" href="@Url.Action("AddProducts", "Cart", new { id = item.Product_Id, producttype = "healthproduct" })">Add to Cart</a>
+                    
+
+                </div>
 
 
-                    <span class="color-black">
-                        (<strong>Save Rs 52.00</strong>)
-                    </span>
-
-                </h6>
-
-                <button class="btn btn-danger btn-block addToCartBtn" type="button">Add to Cart</button>
 
             </div>
-
-
-
-        </div>
-        <div class="item">
-
-            <div class="product-image"><img class="img-responsive" src="https://static2.medplusmart.com/products/HORL0071_S.jpg?v=51ae0a" alt="product-image"></div>
-
-            <div class="product-info">
-
-                <h6 class="caps lhgt20">
-
-                    <span class="productName">COMPLAN PISTA BADAM REFILL 500GM</span>
-
-                </h6>
-
-                <h6 class="price-text-color padding-t-b-5 margin-none">
-
-                    <strong class="large-text color-red">Rs 443.00</strong>
-
-                    <span class="strike">Rs 495</span>
-
-
-                    <span class="color-black">
-                        (<strong>Save Rs 52.00</strong>)
-                    </span>
-
-                </h6>
-
-                <button class="btn btn-danger btn-block addToCartBtn" type="button">Add to Cart</button>
-
-            </div>
-
-
-
-        </div>
-        <div class="item">
-
-            <div class="product-image"><img class="img-responsive" src="https://static2.medplusmart.com/products/HORL0071_S.jpg?v=51ae0a" alt="product-image"></div>
-
-            <div class="product-info">
-
-                <h6 class="caps lhgt20">
-
-                    <span class="productName">COMPLAN PISTA BADAM REFILL 500GM</span>
-
-                </h6>
-
-                <h6 class="price-text-color padding-t-b-5 margin-none">
-
-                    <strong class="large-text color-red">Rs 443.00</strong>
-
-                    <span class="strike">Rs 495</span>
-
-
-                    <span class="color-black">
-                        (<strong>Save Rs 52.00</strong>)
-                    </span>
-
-                </h6>
-
-                <button class="btn btn-danger btn-block addToCartBtn" type="button">Add to Cart</button>
-
-            </div>
-
-
-
-        </div>
-        <div class="item">
-
-            <div class="product-image"><img class="img-responsive" src="https://static2.medplusmart.com/products/HORL0071_S.jpg?v=51ae0a" alt="product-image"></div>
-
-            <div class="product-info">
-
-                <h6 class="caps lhgt20">
-
-                    <span class="productName">COMPLAN PISTA BADAM REFILL 500GM</span>
-
-                </h6>
-
-                <h6 class="price-text-color padding-t-b-5 margin-none">
-
-                    <strong class="large-text color-red">Rs 443.00</strong>
-
-                    <span class="strike">Rs 495</span>
-
-
-                    <span class="color-black">
-                        (<strong>Save Rs 52.00</strong>)
-                    </span>
-
-                </h6>
-
-                <button class="btn btn-danger btn-block addToCartBtn" type="button">Add to Cart</button>
-
-            </div>
-
-
-
-        </div>
-        <div class="item">
-
-            <div class="product-image"><img class="img-responsive" src="https://static2.medplusmart.com/products/HORL0071_S.jpg?v=51ae0a" alt="product-image"></div>
-
-            <div class="product-info">
-
-                <h6 class="caps lhgt20">
-
-                    <span class="productName">COMPLAN PISTA BADAM REFILL 500GM</span>
-
-                </h6>
-
-                <h6 class="price-text-color padding-t-b-5 margin-none">
-
-                    <strong class="large-text color-red">Rs 443.00</strong>
-
-                    <span class="strike">Rs 495</span>
-
-
-                    <span class="color-black">
-                        (<strong>Save Rs 52.00</strong>)
-                    </span>
-
-                </h6>
-
-                <button class="btn btn-danger btn-block addToCartBtn" type="button">Add to Cart</button>
-
-            </div>
-
-
-
-        </div>
-        <div class="item">
-
-            <div class="product-image"><img class="img-responsive" src="https://static2.medplusmart.com/products/HORL0071_S.jpg?v=51ae0a" alt="product-image"></div>
-
-            <div class="product-info">
-
-                <h6 class="caps lhgt20">
-
-                    <span class="productName">COMPLAN PISTA BADAM REFILL 500GM</span>
-
-                </h6>
-
-                <h6 class="price-text-color padding-t-b-5 margin-none">
-
-                    <strong class="large-text color-red">Rs 443.00</strong>
-
-                    <span class="strike">Rs 495</span>
-
-
-                    <span class="color-black">
-                        (<strong>Save Rs 52.00</strong>)
-                    </span>
-
-                </h6>
-
-                <button class="btn btn-danger btn-block addToCartBtn" type="button">Add to Cart</button>
-
-            </div>
-
-
-
-        </div>
-        <div class="item">
-
-            <div class="product-image"><img class="img-responsive" src="https://static2.medplusmart.com/products/HORL0071_S.jpg?v=51ae0a" alt="product-image"></div>
-
-            <div class="product-info">
-
-                <h6 class="caps lhgt20">
-
-                    <span class="productName">COMPLAN PISTA BADAM REFILL 500GM</span>
-
-                </h6>
-
-                <h6 class="price-text-color padding-t-b-5 margin-none">
-
-                    <strong class="large-text color-red">Rs 443.00</strong>
-
-                    <span class="strike">Rs 495</span>
-
-
-                    <span class="color-black">
-                        (<strong>Save Rs 52.00</strong>)
-                    </span>
-
-                </h6>
-
-                <button class="btn btn-danger btn-block addToCartBtn" type="button">Add to Cart</button>
-
-            </div>
-
-
-
-        </div>
-        <div class="item">
-
-            <div class="product-image"><img class="img-responsive" src="https://static2.medplusmart.com/products/HORL0071_S.jpg?v=51ae0a" alt="product-image"></div>
-
-            <div class="product-info">
-
-                <h6 class="caps lhgt20">
-
-                    <span class="productName">COMPLAN PISTA BADAM REFILL 500GM</span>
-
-                </h6>
-
-                <h6 class="price-text-color padding-t-b-5 margin-none">
-
-                    <strong class="large-text color-red">Rs 443.00</strong>
-
-                    <span class="strike">Rs 495</span>
-
-
-                    <span class="color-black">
-                        (<strong>Save Rs 52.00</strong>)
-                    </span>
-
-                </h6>
-
-                <button class="btn btn-danger btn-block addToCartBtn" type="button">Add to Cart</button>
-
-            </div>
-
-
-
-        </div>
-        <div class="item">
-
-            <div class="product-image"><img class="img-responsive" src="https://static2.medplusmart.com/products/HORL0071_S.jpg?v=51ae0a" alt="product-image"></div>
-
-            <div class="product-info">
-
-                <h6 class="caps lhgt20">
-
-                    <span class="productName">COMPLAN PISTA BADAM REFILL 500GM</span>
-
-                </h6>
-
-                <h6 class="price-text-color padding-t-b-5 margin-none">
-
-                    <strong class="large-text color-red">Rs 443.00</strong>
-
-                    <span class="strike">Rs 495</span>
-
-
-                    <span class="color-black">
-                        (<strong>Save Rs 52.00</strong>)
-                    </span>
-
-                </h6>
-
-                <button class="btn btn-danger btn-block addToCartBtn" type="button">Add to Cart</button>
-
-            </div>
-
-
-
-        </div>
+        }
+             
  
+    </div>
+</div>
+
+
+<div class="offer-slider clearfix">
+    <h3>Pharmacy Product Offers</h3>
+    <div class="owl-carousel owl-theme">
+        @foreach (var item in Model.PharmacyProducts)
+        {
+            <div class="item">
+
+                <div class="product-image">
+                    @if (item.ProductImage != null)
+                    {
+                        <img src="data:image/jpeg;base64,@(Convert.ToBase64String(item.ProductImage))">
+                    }
+                    else
+                    {
+                        <img class="img-responsive" src="~/Images/no-image-found.png" alt="product-image">
+                    }
+
+                </div>
+
+                <div class="product-info">
+
+                    <h6 class="caps lhgt20">
+
+                        <span class="productName">@item.ProductName</span>
+
+                    </h6>
+
+                    <h6 class="price-text-color padding-t-b-5 margin-none">
+
+                        <strong class="large-text color-red">Rs @item.ProductPrice</strong>
+
+                        <span class="strike">Rs @item.ProductPrice</span>
+
+                    </h6>
+
+                    <a class="btn btn-danger btn-block addToCartBtn" type="button" href="@Url.Action("AddProducts", "Cart", new { id = item.ProductId, producttype = "pharmacyproduct" })">Add to Cart</a>
+
+
+                </div>
+
+
+
+            </div>
+        }
+
+
     </div>
 </div>

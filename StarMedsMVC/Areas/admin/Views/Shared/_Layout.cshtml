@@ -7,11 +7,11 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="~/Areas/admin/css/custom.css" rel="stylesheet" />   
+    <link href="~/Areas/admin/css/custom.css" rel="stylesheet" />
 </head>
 
 <body>
-    
+
     @RenderBody()
 
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"> </script>
@@ -282,6 +282,33 @@
                 }
             });
         });
+
+
+
+        $("#editOrders").click(function () {
+            //Do stuff when clicked
+            $.ajax({
+                type: "get",
+                url: "@Url.Action("EditIndex", "Orders", new { area = "Admin" })",
+                success: function (d) {
+                    /* d is the HTML of the returned response */
+                    $("#renderView").html(d); //replaces previous HTML with action
+                }
+            });
+        });
+
+        $("#viewOrders").click(function () {
+            //Do stuff when clicked
+            $.ajax({
+                type: "get",
+                url: "@Url.Action("Index", "Orders", new { area = "Admin" })",
+                success: function (d) {
+                    /* d is the HTML of the returned response */
+                    $("#renderView").html(d); //replaces previous HTML with action
+                }
+            });
+        });
+
 
     </script>
 </body>

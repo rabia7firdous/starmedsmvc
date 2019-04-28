@@ -12,5 +12,7 @@ namespace StarMedsMVC.Models
         public List<Address> Addresses { get; set; }
         public int TotalItems { get; set; }
         public int TotalPrice { get; set; }
+        public int SelectedAddress { get; set; }
+        public int PaymentType { get; set; }
     }
 }

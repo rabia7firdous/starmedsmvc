@@ -1,0 +1,74 @@
+﻿@model IEnumerable<StarMedsMVC.Order>
+
+@{
+    ViewBag.Title = "Index";
+    
+}
+
+<table class="table table-striped table-hover table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.orderdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.orderstatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.userid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.addressid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.paymenttype)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.paymentstatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.totalamount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.totalItems)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.orderPlacedProduct.orderPlacedHealthProducts)
+        </th>
+       
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.orderdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.orderstatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.userid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.addressid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.paymenttype)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.paymentstatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.totalamount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.totalItems)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.orderPlacedProduct.orderPlacedHealthProducts)
+            </td>
+            
+        </tr>
+    }
+
+</table>

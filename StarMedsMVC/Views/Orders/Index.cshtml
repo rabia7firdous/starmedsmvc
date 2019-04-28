@@ -1,0 +1,205 @@
+﻿@model  List<StarMedsMVC.Models.OrderPlacedModel>
+
+@{
+    ViewBag.Title = "My Orders";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.orderdate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orderstatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.userid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.addressid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.paymenttype)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.paymentstatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.totalamount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.totalItems)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orderPlacedProduct.orderPlacedHealthProducts)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orderPlacedProduct.orderPlacedPharmacyProducts)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.orderdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.orderstatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.userid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.addressid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.paymenttype)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.paymentstatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.totalamount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.totalItems)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.orderPlacedProduct.orderPlacedHealthProducts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.orderPlacedProduct.orderPlacedPharmacyProducts)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.orderid }) |
+                @Html.ActionLink("Details", "Details", new { id=item.orderid }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.orderid })
+            </td>
+        </tr>
+    }
+
+    </table>*@
+
+
+<div>
+    <div id="step-1">
+        <div class="row margin-none">
+            <div class="col-xs-12 col-sm-8 padding-none">
+
+                @foreach (var item in Model)
+                {
+                    <div class="contianer-fluid productlist-card productlist-card-title order-title">
+                        <div>
+                            Name : <strong>@item.Address.Name</strong>
+                        </div>
+                        <div>
+                            Date of Order :  @item.Order.orderdate
+                        </div>
+                        <div>
+                            Total Items :  @item.Order.totalItems
+                        </div>
+                        <div>
+                            Payment Type : @item.Order.paymenttype
+                        </div>
+                        <div>
+                            Address :                            
+                            @item.Address.AddressDoorNo, @item.Address.AddressLine1, @item.Address.AddressLine1, @item.Address.LandMark, @item.Address.City, @item.Address.State, @item.Address.PinCode
+
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                <h5 class="margin-none strong color-blue">Order Details</h5>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    if (item.HealthProducts.Count > 0)
+                    {
+                        foreach (var product in item.HealthProducts)
+                        {
+                            <div class="contianer-fluid productlist-card">
+                                <div class="row productId">
+                                    @if (product.Product_Image != null)
+                                    {
+                                        <img class="product-img center-block borderradius" width="60" src="data:image/jpeg;base64,@(Convert.ToBase64String(product.Product_Image))">
+                                    }
+                                    else
+                                    {
+                                        <img class="img-responsive" src="~/Images/no-image-found.png" alt="product-image">
+                                    }                                  
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="row margin-l-r-none margin-b clearfix">
+                                            <div class="left w75">
+                                                <h5 class="color-black strong">@product.Product_Name.ToUpper()</h5>
+                                                <p class="size-12 margin-b-5">@product.Quantity.ToUpper()</p>
+                                                <p class="size-12 margin-b-5">
+                                                    <span class="margin-r color-dgry">MRP / Pack <i class="fa fa-rupee size-10"></i> <span class="size-14">@product.Product_Price</span></span>
+                                                    MRP Total<i class="fa fa-rupee size-12 padding-l-5"></i> <span class="size-16 strong">@product.Product_Price</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    if (item.PharmacyProducts.Count > 0)
+                    {
+                        foreach (var product in item.PharmacyProducts)
+                        {
+                            <div class="contianer-fluid productlist-card">
+                                <div class="row productId">
+                                    @if (product.ProductImage != null)
+                                    {
+                                        <img class="product-img center-block borderradius" width="60" src="data:image/jpeg;base64,@(Convert.ToBase64String(product.ProductImage))">
+                                    }
+                                    else
+                                    {
+                                        <img class="img-responsive" src="~/Images/no-image-found.png" alt="product-image">
+                                    }                                    
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="row margin-l-r-none margin-b clearfix">
+                                            <div class="left w75">
+                                                <h5 class="color-black strong">@product.ProductName.ToUpper()</h5>
+                                                <p class="size-12 margin-b-5">@product.Quantity</p>
+                                                <p class="size-12 margin-b-5">
+                                                    <span class="margin-r color-dgry">MRP / Pack <i class="fa fa-rupee size-10"></i> <span class="size-14">@product.ProductPrice</span></span>
+                                                    MRP Total<i class="fa fa-rupee size-12 padding-l-5"></i> <span class="size-16 strong">@product.ProductPrice</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    <div class="productlist-card total-value-box">
+                        <div class="total-line-box">
+                            <span class="mrp-total">Total Amount</span>
+                            <span class="mrp-total"><i class="fa fa-rupee size-10"></i> @item.Order.totalamount</span>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                }
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
