@@ -1,9 +1,10 @@
 ﻿@model  StarMedsMVC.Models.CartProductModel
-<div>
+<div class="steps-list"">
     <ul>
         <li><a href="#step-2">Delivery Details<br /><small> Step 2</small></a></li>
-    </ul>
-    <div>
+    </ul></div>
+
+    <div class="steps-content">
         @using (Html.BeginForm("FinalStep", "Cart", FormMethod.Post))
         {
 
@@ -73,4 +74,3 @@
             </div>
         }
     </div>
-</div>

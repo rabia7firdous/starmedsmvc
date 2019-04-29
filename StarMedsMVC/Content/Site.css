@@ -1227,9 +1227,6 @@ button.btn.btn-secondary.sw-btn-prev {
     margin-bottom: 10px;
 }
 
-div#step-2 {
-    padding: 20px;
-}
 
 .tab-pane.step-content .form-group input {
     height: 48px;
@@ -1432,6 +1429,95 @@ table.table.table-alternate.table-condensed thead th {
 }
 table.table.table-alternate.table-condensed a.text-default.vsmall-text {
     color: #222;
+}
+
+.steps-list {
+    background: #eee;
+    padding-bottom: 17px;
+    padding-top: 17px;
+    border-bottom: 3px solid #2e7cc0;
+}
+
+.steps-content {
+    background: #fafafa;
+    padding: 30px;
+}
+
+.steps-content .btn-group.mr-2.sw-btn-group {
+    margin-top: 25px;
+}
+
+.steps-list ul {
+        list-style-type: none;
+    padding-left: 0px;
+    margin-bottom: 0px;
+}
+
+.steps-list ul li {
+    color: #00a546;
+    text-transform: uppercase;
+    font-size: 20px;
+    text-align: center;
+}
+
+.steps-list ul li a {
+    color: #00a546;
+    text-decoration: none;
+}
+
+label.label-success {
+    background: none;
+    color: red;
+    font-size: 16px;
+    font-weight: 400;
+    display: block;
+    max-width: 300px;
+    padding: 7px 10px;
+    margin-left: 10px;
+}
+h1.green-txt {
+    color: green;
+    font-weight: 300;
+}
+
+.bordered-col {
+    border: 1px dashed #999;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.bordered-col h4 {
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+.contianer-fluid.productlist-card.productlist-card-title.order-title.order-box-panel {
+    padding-left: 10px;
+    box-shadow: none;
+    border: 0px;
+    border: 1px dashed #9999;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.order-box-panel div {
+    font-size: 15px;
+    line-height: 30px;
+}
+
+
+.order-box-panel .productlist-card {
+    box-shadow: none;
+}
+
+.order-panel .contianer-fluid.productlist-card {
+    background: #fafafa;
+    box-shadow: none;
+    border: 1px dashed #eee;
+    margin-top:20px;
+}
+
+.order-panel  .productlist-card.total-value-box {
+    background: #eee;
 }
 /* Override the default bootstrap behavior where horizontal description lists will truncate terms that are too long to fit in the left column */
 .dl-horizontal dt {
