@@ -1,4 +1,5 @@
-﻿using StarMedsMVC.Models;
+﻿using paytm;
+using StarMedsMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -323,7 +324,7 @@ namespace StarMedsMVC.Controllers
                     }
                     order.totalamount = cartProducts.TotalPrice;
                     order.orderPlacedId = orderPlacedId;
-                    order.totalItems = cartProducts.TotalItems;
+                    order.totalItems = cartProducts.TotalItems;                    
                     db.Orders.Add(order);
                     db.SaveChanges();
                     var cartproducts = db.Carts.Where(i => i.userid == UserId).ToList();
@@ -332,12 +333,10 @@ namespace StarMedsMVC.Controllers
                         db.Carts.Remove(item);
                         db.SaveChanges();
                     }
-
-                    
+                    //string outputHtml = paymentRequest(order);
+                    //ViewBag.htmldata = outputHtml;
+                    //return View("PaymentPage");
                 }
-
-
-
                 return View("OrderPlaced");
             }
         }
@@ -575,5 +574,99 @@ namespace StarMedsMVC.Controllers
             Session["count"] = db.Carts.Where(c => c.userid == UserId).Count();
             return View("FirstStep", cartProducts);
         }
+
+
+        public string paymentRequest(Order order)
+        {
+            string outputHTML = "";
+            Dictionary<String, String> paytmParams = new Dictionary<String, String>();
+            String merchantMid = "rxazcv89315285244163";
+            // Key in your staging and production MID available in your dashboard
+            String merchantKey = "gKpu7IKaLSbkchFS";
+            // Key in your staging and production merchant key available in your dashboard
+            String orderId = order.orderid.ToString();
+            String channelId = "WEB";
+            String custId = "cust123";
+            String mobileNo = "7777777777";
+            String email = "username@emailprovider.com";
+            String txnAmount = order.totalamount.ToString();
+            String website = "WEBSTAGING";
+            // This is the staging value. Production value is available in your dashboard
+            String industryTypeId = "Retail";
+            // This is the staging value. Production value is available in your dashboard
+            String callbackUrl = "http://localhost:64742/Cart/PaymentResponse";
+            paytmParams.Add("MID", merchantMid);
+            paytmParams.Add("CHANNEL_ID", channelId);
+            paytmParams.Add("WEBSITE", website);
+            paytmParams.Add("CALLBACK_URL", callbackUrl);
+            paytmParams.Add("CUST_ID", custId);
+            paytmParams.Add("MOBILE_NO", mobileNo);
+            paytmParams.Add("EMAIL", email);
+            paytmParams.Add("ORDER_ID", orderId);
+            paytmParams.Add("INDUSTRY_TYPE_ID", industryTypeId);
+            paytmParams.Add("TXN_AMOUNT", txnAmount);
+            // for staging 
+            string transactionURL = " https://securegw-stage.paytm.in/theia/processTransaction";
+            // for production 
+            // string transactionURL = "https://securegw.paytm.in/theia/processTransaction"; 
+            try
+            {
+                string paytmChecksum = paytm.CheckSum.generateCheckSum(merchantKey, paytmParams);
+                outputHTML = "<html>";
+                outputHTML += "<head>";
+                outputHTML += "<title>Merchant Checkout Page</title>";
+                outputHTML += "</head>";
+                outputHTML += "<body>";
+                outputHTML += "<center><h1>Please do not refresh this page...</h1></center>";
+                outputHTML += "<form method='post' action='" + transactionURL + "' name='f1'>";
+                foreach (string key in paytmParams.Keys)
+                {
+                    outputHTML += "<input type='hidden' name='" + key + "' value='" + paytmParams[key] + "'>";
+                }
+                outputHTML += "<input type='hidden' name='CHECKSUMHASH' value='" + paytmChecksum + "'>";
+                outputHTML += "<script type='text/javascript'>";
+                outputHTML += "document.f1.submit();";
+                outputHTML += "</script>";
+                outputHTML += "</form>";
+                outputHTML += "</body>";
+                outputHTML += "</html>";
+                
+                return outputHTML;
+            }
+            catch (Exception ex)
+            {
+                Response.Write("Exception message: " + ex.Message.ToString());
+            }
+            return outputHTML;
+        }
+
+        [HttpPost]
+        public ActionResult PaymentResponse(PaymentResponse paymentResponse)
+        {
+           String merchantKey = "gKpu7IKaLSbkchFS"; ; // Replace the with the Merchant Key provided by Paytm at the time of registration.
+
+           Dictionary<string, string> parameters = new Dictionary<string, string>();
+           string paytmChecksum = "";
+           foreach (string key in Request.Form.Keys)
+           {
+               parameters.Add(key.Trim(), Request.Form[key].Trim());
+           }
+
+           if (parameters.ContainsKey("CHECKSUMHASH"))
+           {
+               paytmChecksum = parameters["CHECKSUMHASH"];
+               parameters.Remove("CHECKSUMHASH");
+           }
+
+           if (CheckSum.verifyCheckSum(merchantKey, parameters, paytmChecksum))
+           {
+               Response.Write("Checksum Matched");
+           }
+           else
+           {
+               Response.Write("Checksum MisMatch");
+           }
+           return View("PaymentResponse");
+       }
     }
 }

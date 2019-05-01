@@ -19,7 +19,7 @@
                             <ul class="dropdown-menu">
                                 <li><i class="fa fa-user" aria-hidden="true"></i><a href="@Url.Action("Index", "Orders")"> My Orders</a></li>
                                 <li><i class="fa fa-user" aria-hidden="true"></i><a href="@Url.Action("Index", "Addresses")"> My Addresses</a></li>
-                                <li><i class="fa fa-user" aria-hidden="true"></i><a href="#"> Change Password</a></li>
+                                @*<li><i class="fa fa-user" aria-hidden="true"></i><a href="#"> Change Password</a></li>*@
                                 <li><i class="fa fa-sign-out" aria-hidden="true"></i> @Html.ActionLink("Logout", "LogOut", "LogOut", new { area = "" }, null)</li>
                             </ul>
                         </li>
