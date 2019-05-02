@@ -15,18 +15,18 @@
     <script>
         $(document).ready(function () {
             setTimeout(function () {
-                $("#redirectButton")[0].click();                
+                $("#redirectButton").trigger('click');
             }, 5000);
         });
     </script>
 </head>
 <body>
     <div> 
-        <h1>Payment is Successfull</h1>
+        <h1>Payment was not Successfull</h1>
         
         <br />
         <br/>
-        <h4 class="subtitle"><a id="redirectButton" href="@Url.Action("Index", "Orders")">Click here or you will be redirected to the Orders page in 5 seconds</a></h4>
+        <h4 class="subtitle"><a id="redirectButton" href="@Url.Action("Index", "Home")">Click here or you will be redirected to the Home page in 5 seconds</a></h4>
 
     </div>
 </body>

@@ -333,9 +333,9 @@ namespace StarMedsMVC.Controllers
                         db.Carts.Remove(item);
                         db.SaveChanges();
                     }
-                    //string outputHtml = paymentRequest(order);
-                    //ViewBag.htmldata = outputHtml;
-                    //return View("PaymentPage");
+                    string outputHtml = paymentRequest(order);
+                    ViewBag.htmldata = outputHtml;
+                    return View("PaymentPage");
                 }
                 return View("OrderPlaced");
             }
@@ -578,13 +578,14 @@ namespace StarMedsMVC.Controllers
 
         public string paymentRequest(Order order)
         {
+            Random random = new Random();
             string outputHTML = "";
             Dictionary<String, String> paytmParams = new Dictionary<String, String>();
             String merchantMid = "rxazcv89315285244163";
             // Key in your staging and production MID available in your dashboard
             String merchantKey = "gKpu7IKaLSbkchFS";
             // Key in your staging and production merchant key available in your dashboard
-            String orderId = order.orderid.ToString();
+            String orderId = random.Next() + order.orderid.ToString();
             String channelId = "WEB";
             String custId = "cust123";
             String mobileNo = "7777777777";
@@ -660,11 +661,11 @@ namespace StarMedsMVC.Controllers
 
            if (CheckSum.verifyCheckSum(merchantKey, parameters, paytmChecksum))
            {
-               Response.Write("Checksum Matched");
+               return View("PaymentResponse");
            }
            else
            {
-               Response.Write("Checksum MisMatch");
+               return View("Error");
            }
            return View("PaymentResponse");
        }
