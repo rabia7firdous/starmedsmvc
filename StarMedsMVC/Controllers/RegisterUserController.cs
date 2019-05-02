@@ -42,7 +42,7 @@ namespace StarMedsMVC.Controllers
                         db.SaveChanges();
                     }
                     ModelState.Clear();
-                    ViewBag.SuccessMessage = "User Registered Successfully";                    
+                    ViewData["SuccessMessage"] = "User Registered Successfully";                    
                 }
 
                 return View("Index", new CustomerDetail());

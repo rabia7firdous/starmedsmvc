@@ -1,8 +1,4 @@
-﻿using StarMedsMVC.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 
 namespace StarMedsMVC.Controllers
@@ -18,20 +14,24 @@ namespace StarMedsMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(CustomerDetail objUser)
         {
-            if (ModelState.IsValid)
+
+            using (starmedsdbEntities db = new starmedsdbEntities())
             {
-                using (starmedsdbEntities db = new starmedsdbEntities())
+                var obj = db.CustomerDetails.Where(a => a.UserName.Equals(objUser.UserName) && a.Password.Equals(objUser.Password)).FirstOrDefault();
+                if (obj != null)
                 {
-                    var obj = db.CustomerDetails.Where(a => a.UserName.Equals(objUser.UserName) && a.Password.Equals(objUser.Password)).FirstOrDefault();
-                    if (obj != null)
-                    {
-                        Session["UserID"] = obj.Id.ToString();
-                        Session["UserName"] = obj.UserName.ToString();
-                        Session["CustomerName"] = obj.CustomerName.ToString();
-                        return RedirectToAction("Index", "Home");
-                    }
+                    Session["UserID"] = obj.Id.ToString();
+                    Session["UserName"] = obj.UserName.ToString();
+                    Session["CustomerName"] = obj.CustomerName.ToString();
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.message = "Invalid UserName/Password";
+                    return View(objUser);
                 }
             }
+
             return View(objUser);
         }
 
@@ -45,6 +45,6 @@ namespace StarMedsMVC.Controllers
             {
                 return RedirectToAction("Login");
             }
-        }  
+        }
     }
 }
